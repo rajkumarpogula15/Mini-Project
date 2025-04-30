@@ -1,0 +1,23 @@
+.categories {
+    padding: 2rem;
+    background-color: #f9f9f9;
+    text-align: center;
+  }
+  
+  .category-cards {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  
+  .card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    font-size: 1.2rem;
+    width: 200px;
+  }
+  

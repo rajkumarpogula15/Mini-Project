@@ -6,4 +6,12 @@ module.exports = {
     tailwindcss(),
     autoprefixer()
   ],
+  config : {
+    plugins: {
+      "@tailwindcss/postcss": {},
+    },
+  }
 };
+
+
+
