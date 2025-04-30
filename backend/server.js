@@ -4,6 +4,9 @@ import cors from 'cors';
 import connectDB from './config/db.js';
 import userRoutes from './routes/userRoutes.js'; 
 import eventRoutes from './routes/eventRoutes.js';
+import vendorRoutes from './routes/vendorRoutes.js';
+import bookingRoutes from './routes/bookingRoutes.js';
+
 
 
 dotenv.config();
@@ -20,6 +23,9 @@ connectDB();
 // API Routes
 app.use('/api/users', userRoutes);  // <-- ADD THIS LINE
 app.use('/api/events', eventRoutes);
+app.use('/api/vendors', vendorRoutes);
+app.use('/api/bookings', bookingRoutes);
+
 
 // Test route
 app.get('/', (req, res) => {

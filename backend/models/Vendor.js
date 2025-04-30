@@ -8,6 +8,11 @@ const vendorSchema = new mongoose.Schema({
   location: String,
   images: [String], // photo URLs
   availableDates: [Date],
+  status: {
+    type: String,
+    enum: ['pending', 'approved', 'rejected'],
+    default: 'pending',
+  },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',

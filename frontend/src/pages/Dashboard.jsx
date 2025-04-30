@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import VendorDashboard from "./VendorDashboard"; // ✅ import
+import OrganizerDashboard from "./OrganizerDashboard"; // 🛠 create this next
+import AdminDashboard from "./AdminDashboard";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -16,25 +19,16 @@ function Dashboard() {
     }
   }, [navigate]);
 
+  if (!role) return null; // Prevent flicker
+
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
-      {role === 'organizer' && (
-        <div className="bg-white p-6 rounded shadow-md w-full max-w-md text-center">
-          <h2 className="text-xl font-semibold">Welcome Organizer 👑</h2>
-          <p>Manage your events here.</p>
-        </div>
-      )}
-      {role === 'vendor' && (
-        <div className="bg-white p-6 rounded shadow-md w-full max-w-md text-center">
-          <h2 className="text-xl font-semibold">Welcome Vendor 📦</h2>
-          <p>Manage your services here.</p>
-        </div>
-      )}
+    <div className="min-h-screen bg-gray-100 p-6">
+      {role === 'organizer' && <OrganizerDashboard />}
+      {role === 'vendor' && <VendorDashboard />}
+      {role === 'admin' && <AdminDashboard />}
       {role === 'attendee' && (
-        <div className="bg-white p-6 rounded shadow-md w-full max-w-md text-center">
-          <h2 className="text-xl font-semibold">Welcome Attendee 🎉</h2>
-          <p>Book and attend events.</p>
+        <div className="text-center text-gray-700 text-xl">
+          Coming soon: Attendee Dashboard 🎉
         </div>
       )}
     </div>
