@@ -1,5 +1,7 @@
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
+
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import WhyChooseUs from './components/WhyChooseUs';
@@ -11,11 +13,30 @@ import CTA from './components/CTA';
 import Footer from './components/Footer';
 
 function App() {
+  const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
+
+  // Apply theme to body
+  useEffect(() => {
+    document.body.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+  }, [darkMode]);
+
+  // Load saved preference
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') setDarkMode(true);
+  }, []);
 
   return (
     <>
       <Navbar />
+      <div className="theme-toggle-container">
+        <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
+          {darkMode ? '🌞 Light Mode' : '🌙 Dark Mode'}
+        </button>
+      </div>
+
       <div className="homepage-container">
         <Hero />
         <WhyChooseUs />

@@ -1,0 +1,76 @@
+.faq-section {
+    background: #f4f7ff;
+    padding: 60px 20px;
+    text-align: center;
+  }
+  
+  .faq-section h2 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 40px;
+  }
+  
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .faq-item {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .faq-item summary {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #1e2a38;
+    margin-bottom: 10px;
+    list-style: none;
+    position: relative;
+    padding-right: 20px;
+  }
+  
+  .faq-item summary::after {
+    content: '>';
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: transform 0.3s;
+  }
+  
+  .faq-item[open] summary::after {
+    transform: rotate(90deg);
+  }
+  
+  .faq-item p {
+    margin-top: 10px;
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @media (max-width: 768px) {
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  [data-theme="dark"] {
+  /* Dark theme */
+  --bg-color: #f4f4f4;
+  --text-color: #f4f4f4;
+  --card-bg: #1e1e1e;
+}

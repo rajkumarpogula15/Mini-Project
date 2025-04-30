@@ -1,34 +1,27 @@
-// src/components/WhyChooseUs.jsx
+import React from 'react';
 import { FaTrophy, FaStar, FaClock } from 'react-icons/fa';
-import { motion }          from 'framer-motion';
 import './WhyChooseUs.css';
 
-const benefits = [
-  { icon: <FaTrophy />, title: 'Trusted by 500+ Clients'      },
-  { icon: <FaStar   />, title: '99% Client Satisfaction Rate' },
-  { icon: <FaClock  />, title: '5+ Years of Experience'       },
-];
-
-export default function WhyChooseUs() {
+const WhyChooseUs = () => {
   return (
-    <section className="why-us container">
-      <h2 className="section-title">Why Choose Us?</h2>
-      <div className="benefit-grid">
-        {benefits.map((b, i) => (
-          <motion.div
-            className="benefit-card"
-            key={i}
-            whileHover={{ scale: 1.05, y: -5 }}
-            transition={{ type: 'spring', stiffness: 300 }}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <div className="icon-wrapper">{b.icon}</div>
-            <p>{b.title}</p>
-          </motion.div>
-        ))}
+    <section className="why-choose-us">
+      <h2>Why Choose Us?</h2>
+      <div className="why-cards">
+        <div className="why-card">
+          <FaTrophy size={48} style={{ color: 'var(--text-color)' }} />
+          <h3>Trusted by 500+ Clients</h3>
+        </div>
+        <div className="why-card">
+          <FaStar size={48} style={{ color: 'var(--text-color)' }} />
+          <h3>99% Client Satisfaction Rate</h3>
+        </div>
+        <div className="why-card">
+          <FaClock size={48} style={{ color: 'var(--text-color)' }} />
+          <h3>5+ Years of Experience</h3>
+        </div>
       </div>
     </section>
   );
-}
+};
+
+export default WhyChooseUs;

@@ -21,3 +21,50 @@
     width: 200px;
   }
   
+  /* src/components/Categories.css */
+.categories {
+  background-color: var(--card-bg);
+  padding: 3rem 1rem;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.categories h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);            /* theme text color */
+}
+
+.category-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.card {
+  background-color: var(--card-bg);
+  color: var(--text-color);            /* theme text color */
+  padding: 1.75rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* If you have icons inside, force their color too */
+.card svg, .card img {
+  color: var(--text-color);
+  fill: var(--text-color);
+}
+
+[data-theme="dark"] {
+  /* Dark theme */
+  --bg-color: #f4f4f4;
+  --text-color: #f4f4f4;
+  --card-bg: #1e1e1e;
+}
