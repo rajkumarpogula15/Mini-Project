@@ -13,7 +13,7 @@ function SidebarLayout({ children }) {
       {/* Sidebar */}
       <aside className="w-64 bg-white shadow-lg p-6 flex flex-col justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-blue-600 mb-6">NeoEvent Admin</h2>
+          <h2 className="text-2xl font-bold text-blue-600 mb-6">Admin</h2>
 
           <nav className="space-y-3 text-gray-700 font-medium">
             <Link to="/admin" className="block hover:text-blue-600">🏠 Dashboard</Link>

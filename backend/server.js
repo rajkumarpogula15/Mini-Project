@@ -6,7 +6,7 @@ import userRoutes from './routes/userRoutes.js';
 import eventRoutes from './routes/eventRoutes.js';
 import vendorRoutes from './routes/vendorRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
-
+import adminRoutes from './routes/adminRoutes.js';
 
 
 dotenv.config();
@@ -25,6 +25,7 @@ app.use('/api/users', userRoutes);  // <-- ADD THIS LINE
 app.use('/api/events', eventRoutes);
 app.use('/api/vendors', vendorRoutes);
 app.use('/api/bookings', bookingRoutes);
+app.use('/api/admin', adminRoutes);
 
 
 // Test route

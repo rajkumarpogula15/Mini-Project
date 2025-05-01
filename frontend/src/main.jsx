@@ -15,6 +15,7 @@ import BookingConfirmation from './pages/BookingConfirmation.jsx';
 import AdminDashboard from './pages/AdminDashboard';
 import ManageVendors from './pages/admin/ManageVendors';
 import ManageUsers from './pages/admin/ManageUsers';
+import ManageBookings from './pages/admin/ManageBookings';
 import './App.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -34,6 +35,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/vendors" element={<ManageVendors />} />
         <Route path="/admin/users" element={<ManageUsers />} />
+        <Route path="/admin/bookings" element={<ManageBookings />} />
 
 
       </Routes>

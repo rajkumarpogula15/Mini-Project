@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import SidebarLayout from "../../components/SidebarLayout";
+import SidebarLayout from "../../components/AdminLeftbar";
+import AddUserModal from "../../components/AddUserModal";
 
 function ManageUsers() {
   const [users, setUsers] = useState([]);
 
   const token = localStorage.getItem("userToken");
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchUsers = async () => {
     try {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import OrganizerSidebarLayout from "../../components/OrganizerSidebarLayout";
+import OrganizerSidebarLayout from "../components/OrganizerSidebarLayout";
 
 function OrganizerDashboard() {
   const [bookings, setBookings] = useState([]);

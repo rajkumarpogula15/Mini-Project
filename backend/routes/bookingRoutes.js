@@ -57,5 +57,18 @@ router.get('/organizer', protect, async (req, res) => {
   }
 });
 
+// ✅ Admin-only: Get all bookings
+router.get('/admin/all', protect, async (req, res) => {
+  try {
+    const bookings = await Booking.find()
+      .populate('vendorId', 'name category location')
+      .populate('organizerId', 'name email phone')
+      .sort({ createdAt: -1 });
+
+    res.json(bookings);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 export default router;
