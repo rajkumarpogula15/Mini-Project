@@ -16,6 +16,8 @@ import AdminDashboard from './pages/AdminDashboard';
 import ManageVendors from './pages/admin/ManageVendors';
 import ManageUsers from './pages/admin/ManageUsers';
 import ManageBookings from './pages/admin/ManageBookings';
+import ManageEvents from './pages/organizer/ManageEvents';
+
 import './App.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -36,6 +38,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/admin/vendors" element={<ManageVendors />} />
         <Route path="/admin/users" element={<ManageUsers />} />
         <Route path="/admin/bookings" element={<ManageBookings />} />
+        <Route path="/organizer/events" element={<ManageEvents />} />
 
 
       </Routes>

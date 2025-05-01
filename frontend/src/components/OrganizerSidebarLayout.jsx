@@ -16,7 +16,7 @@ function OrganizerSidebarLayout({ children }) {
           <h2 className="text-2xl font-bold text-indigo-600 mb-6">Organizer Panel</h2>
 
           <nav className="space-y-3 text-gray-700 font-medium">
-            <Link to="/organizer" className="block hover:text-indigo-600">🏠 Dashboard</Link>
+            <Link to="/dashboard" className="block hover:text-indigo-600">🏠 Dashboard</Link>
             <Link to="/organizer/events" className="block hover:text-indigo-600">🗓️ Manage Events</Link>
             <Link to="/organizer/vendors/recommended" className="block hover:text-indigo-600">🤝 Vendor Recommendations</Link>
             <Link to="/organizer/vendors/book" className="block hover:text-indigo-600">📦 Book Vendors</Link>

@@ -14,26 +14,57 @@ function OrganizerDashboard() {
 
   const token = localStorage.getItem("userToken");
 
-  const fetchMyBookings = async () => {
+  const fetchData = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/bookings/organizer", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setBookings(res.data);
-
-      // Example logic for stats
-      setEventCount(3); // Replace with real API
-      setVendorsBookedCount(res.data.length);
-      setPendingBookings(res.data.filter(b => b.status === "pending").length);
-      setReviewCount(5); // Replace with real review count API
+      const headers = { Authorization: `Bearer ${token}` };
+  
+      // Fetch bookings
+      const bookingsRes = await axios.get("http://localhost:5000/api/bookings/organizer", { headers });
+      setBookings(bookingsRes.data);
+      setPendingBookings(bookingsRes.data.filter(b => b.status === "pending").length);
+      setVendorsBookedCount(bookingsRes.data.length);
+  
+      // Fetch events
+      const eventsRes = await axios.get("http://localhost:5000/api/events/myevents", { headers });
+      setEventCount(eventsRes.data.length);
+  
+      // Fetch reviews (optional)
+      // const reviewsRes = await axios.get("http://localhost:5000/api/reviews/organizer", { headers });
+      // setReviewCount(reviewsRes.data.length);
+  
+      // Profile completion
+      const profileRes = await axios.get("http://localhost:5000/api/users/profile", { headers });
+      const profile = profileRes.data;
+      const filled = ["name", "email", "phone", "bio", "photo"].filter(field => profile[field]);
+      const completion = Math.round((filled.length / 5) * 100);
+      setProfileCompletion(completion);
+  
     } catch (err) {
-      console.error("Failed to load organizer bookings:", err.message);
+      console.error("Dashboard data fetch failed:", err.message);
     }
   };
+  
 
-  useEffect(() => {
-    fetchMyBookings();
-  }, []);
+  // const fetchMyBookings = async () => {
+  //   try {
+  //     const res = await axios.get("http://localhost:5000/api/bookings/organizer", {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
+  //     setBookings(res.data);
+
+  //     // Example logic for stats
+  //     setEventCount(3); // Replace with real API
+  //     setVendorsBookedCount(res.data.length);
+  //     setPendingBookings(res.data.filter(b => b.status === "pending").length);
+  //     setReviewCount(5); // Replace with real review count API
+  //   } catch (err) {
+  //     console.error("Failed to load organizer bookings:", err.message);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchMyBookings();
+  // }, []);
 
   return (
     <OrganizerSidebarLayout>
