@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import SidebarLayout from "../../components/SidebarLayout";
+import SidebarLayout from "../../components/AdminLeftbar";
 
 function ManageVendors() {
   const [vendors, setVendors] = useState([]);

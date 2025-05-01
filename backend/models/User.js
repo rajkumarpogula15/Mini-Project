@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
     enum: ['organizer', 'vendor', 'attendee', 'admin'],
     default: 'attendee'
   },
+  blocked: {
+    type: Boolean,
+    default: false
+  }
 }, {
   timestamps: true
 });

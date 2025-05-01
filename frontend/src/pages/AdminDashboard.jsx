@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import SidebarLayout from "../components/SidebarLayout"; // reuse sidebar layout
+import SidebarLayout from "../components/AdminLeftbar"; // reuse sidebar layout
 
 function AdminDashboard() {
   const navigate = useNavigate();
