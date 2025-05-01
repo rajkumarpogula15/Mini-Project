@@ -42,5 +42,15 @@ router.get('/myevents', protect, async (req, res) => {
     res.json(events);
   });
   
+  // GET /api/events/myevents
+router.get('/myevents', protect, async (req, res) => {
+  try {
+    const events = await Event.find({ createdBy: req.user._id }).sort({ createdAt: -1 });
+    res.json(events);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 
 export default router;

@@ -10,14 +10,19 @@ import CreateEvent from './pages/CreateEvent.jsx';
 import MyEvents from './pages/MyEvents.jsx';
 import RegisterVendor from './pages/RegisterVendor.jsx';
 import VendorList from './pages/VendorList.jsx';
-import VendorDashboard from './pages/VendorDashboard.jsx';
+// import VendorDashboard from './pages/VendorDashboard.jsx';
 import BookingConfirmation from './pages/BookingConfirmation.jsx';
 import AdminDashboard from './pages/AdminDashboard';
 import ManageVendors from './pages/admin/ManageVendors';
 import ManageUsers from './pages/admin/ManageUsers';
 import ManageBookings from './pages/admin/ManageBookings';
 import ManageEvents from './pages/organizer/ManageEvents';
-
+import VendorDashboard from "./pages/vendor/VendorDashboard.jsx";
+import VendorBookings from "./pages/vendor/VendorBookings.jsx";
+import VendorEarnings from "./pages/vendor/VendorEarnings.jsx";
+import VendorReviews from "./pages/vendor/VendorReviews.jsx";
+import VendorProfile from "./pages/vendor/VendorProfile.jsx";
+import ManageServices from "./pages/vendor/ManageServices.jsx";
 import './App.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -39,6 +44,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/admin/users" element={<ManageUsers />} />
         <Route path="/admin/bookings" element={<ManageBookings />} />
         <Route path="/organizer/events" element={<ManageEvents />} />
+
+        {/* Vendor Routes */}
+        <Route path="/vendor/dashboard" element={<VendorDashboard />} />
+        <Route path="/vendor/services" element={<ManageServices />} />
+        <Route path="/vendor/bookings" element={<VendorBookings />} />
+        <Route path="/vendor/earnings" element={<VendorEarnings />} />
+        <Route path="/vendor/reviews" element={<VendorReviews />} />
+        <Route path="/vendor/profile" element={<VendorProfile />} />
 
 
       </Routes>

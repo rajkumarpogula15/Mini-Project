@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import VendorDashboard from "./VendorDashboard"; // ✅ import
+import VendorDashboard from "./vendor/VendorDashboard"; // ✅ import
 import OrganizerDashboard from "./OrganizerDashboard"; // 🛠 create this next
 import AdminDashboard from "./AdminDashboard";
 

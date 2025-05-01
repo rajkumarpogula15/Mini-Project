@@ -4,67 +4,54 @@ import axios from "axios";
 import OrganizerSidebarLayout from "../components/OrganizerSidebarLayout";
 
 function OrganizerDashboard() {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("userToken");
+
   const [bookings, setBookings] = useState([]);
   const [eventCount, setEventCount] = useState(0);
   const [vendorsBookedCount, setVendorsBookedCount] = useState(0);
   const [pendingBookings, setPendingBookings] = useState(0);
   const [reviewCount, setReviewCount] = useState(0);
-  const navigate = useNavigate();
+  const [profileCompletion, setProfileCompletion] = useState(0);
+  const [topVendors, setTopVendors] = useState([]);
 
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
 
-  const token = localStorage.getItem("userToken");
-
-  const fetchData = async () => {
+  const fetchDashboardData = async () => {
     try {
       const headers = { Authorization: `Bearer ${token}` };
-  
-      // Fetch bookings
+
+      // Bookings
       const bookingsRes = await axios.get("http://localhost:5000/api/bookings/organizer", { headers });
       setBookings(bookingsRes.data);
       setPendingBookings(bookingsRes.data.filter(b => b.status === "pending").length);
       setVendorsBookedCount(bookingsRes.data.length);
-  
-      // Fetch events
+
+      // Events
       const eventsRes = await axios.get("http://localhost:5000/api/events/myevents", { headers });
       setEventCount(eventsRes.data.length);
-  
-      // Fetch reviews (optional)
-      // const reviewsRes = await axios.get("http://localhost:5000/api/reviews/organizer", { headers });
-      // setReviewCount(reviewsRes.data.length);
-  
+
+      // Top Vendors
+      const vendorRes = await axios.get("http://localhost:5000/api/bookings/top-vendors", { headers });
+      setTopVendors(vendorRes.data);
+
       // Profile completion
       const profileRes = await axios.get("http://localhost:5000/api/users/profile", { headers });
       const profile = profileRes.data;
-      const filled = ["name", "email", "phone", "bio", "photo"].filter(field => profile[field]);
-      const completion = Math.round((filled.length / 5) * 100);
+      const fields = ["name", "email", "phone", "bio", "photo"];
+      const filled = fields.filter(field => profile[field]);
+      const completion = Math.round((filled.length / fields.length) * 100);
       setProfileCompletion(completion);
-  
+
+      // Optional: static review count
+      setReviewCount(5);
+
     } catch (err) {
-      console.error("Dashboard data fetch failed:", err.message);
+      console.error("Dashboard fetch failed:", err.message);
     }
   };
-  
-
-  // const fetchMyBookings = async () => {
-  //   try {
-  //     const res = await axios.get("http://localhost:5000/api/bookings/organizer", {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     setBookings(res.data);
-
-  //     // Example logic for stats
-  //     setEventCount(3); // Replace with real API
-  //     setVendorsBookedCount(res.data.length);
-  //     setPendingBookings(res.data.filter(b => b.status === "pending").length);
-  //     setReviewCount(5); // Replace with real review count API
-  //   } catch (err) {
-  //     console.error("Failed to load organizer bookings:", err.message);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchMyBookings();
-  // }, []);
 
   return (
     <OrganizerSidebarLayout>
@@ -79,31 +66,28 @@ function OrganizerDashboard() {
       </div>
 
       {/* Quick Actions */}
-        <div className="mb-6 flex flex-wrap gap-4">
-          <button
-            onClick={() => navigate("/organizer/events")}
-            className="bg-blue-600 text-white px-4 py-2 rounded"
-          >
-            📤 Create New Event
-          </button>
+      <div className="mb-6 flex flex-wrap gap-4">
+        <button
+          onClick={() => navigate("/organizer/events")}
+          className="bg-blue-600 text-white px-4 py-2 rounded"
+        >
+          📤 Create New Event
+        </button>
+        <button
+          onClick={() => navigate("/organizer/vendors/book")}
+          className="bg-green-600 text-white px-4 py-2 rounded"
+        >
+          🔎 Find Vendors
+        </button>
+        <button
+          onClick={() => navigate("/organizer/share")}
+          className="bg-indigo-600 text-white px-4 py-2 rounded"
+        >
+          📩 Share Event Page
+        </button>
+      </div>
 
-          <button
-            onClick={() => navigate("/organizer/vendors/book")}
-            className="bg-green-600 text-white px-4 py-2 rounded"
-          >
-            🔎 Find Vendors
-          </button>
-
-          <button
-            onClick={() => navigate("/organizer/share")}
-            className="bg-indigo-600 text-white px-4 py-2 rounded"
-          >
-            📩 Share Event Page
-          </button>
-        </div>
-
-
-      {/* Bookings */}
+      {/* Recent Bookings */}
       <h2 className="text-xl font-semibold mb-3">Recent Bookings</h2>
       {bookings.length === 0 ? (
         <p className="text-gray-500">No bookings made yet.</p>
@@ -120,24 +104,24 @@ function OrganizerDashboard() {
         </div>
       )}
 
-      {/* Profile Completion Meter */}
+      {/* Profile Completion */}
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-2">👤 Profile Completion</h2>
         <div className="bg-gray-200 h-4 w-full rounded">
-          <div className="bg-blue-500 h-4 rounded" style={{ width: "75%" }}></div>
+          <div className="bg-blue-500 h-4 rounded" style={{ width: `${profileCompletion}%` }}></div>
         </div>
-        <p className="text-sm text-gray-500 mt-1">75% complete – Add more info to improve trust.</p>
+        <p className="text-sm text-gray-500 mt-1">{profileCompletion}% complete – Add more info to improve trust.</p>
       </div>
 
       {/* Top Booked Vendors */}
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-2">🏆 Top Booked Vendors</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {[1, 2, 3].map((v) => (
-            <div key={v} className="bg-white p-4 rounded shadow">
-              <h3 className="font-bold text-blue-600">Vendor {v}</h3>
-              <p className="text-sm text-gray-500">Service Category</p>
-              <p className="text-sm">⭐ 4.{v} Rating</p>
+          {topVendors.map((v) => (
+            <div key={v._id} className="bg-white p-4 rounded shadow">
+              <h3 className="font-bold text-blue-600">{v.vendorDetails?.name || "Vendor"}</h3>
+              <p className="text-sm text-gray-500">{v.vendorDetails?.category || "Service"}</p>
+              <p className="text-sm">📅 {v.count} bookings</p>
             </div>
           ))}
         </div>

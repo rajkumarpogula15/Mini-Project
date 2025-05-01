@@ -71,4 +71,29 @@ router.get('/admin/all', protect, async (req, res) => {
   }
 });
 
+// GET /api/bookings/top-vendors
+router.get('/top-vendors', protect, async (req, res) => {
+  try {
+    const topVendors = await Booking.aggregate([
+      { $match: { organizer: req.user._id } },
+      { $group: { _id: "$vendor", count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+      { $limit: 3 },
+      {
+        $lookup: {
+          from: "vendors",
+          localField: "_id",
+          foreignField: "_id",
+          as: "vendorDetails"
+        }
+      },
+      { $unwind: "$vendorDetails" }
+    ]);
+
+    res.json(topVendors);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 export default router;
