@@ -17,6 +17,7 @@ import ManageVendors from './pages/admin/ManageVendors';
 import ManageUsers from './pages/admin/ManageUsers';
 import ManageBookings from './pages/admin/ManageBookings';
 import ManageEvents from './pages/organizer/ManageEvents';
+import BookVendors from './pages/organizer/BookVendors.jsx';
 import VendorDashboard from "./pages/vendor/VendorDashboard.jsx";
 import VendorBookings from "./pages/vendor/VendorBookings.jsx";
 import VendorEarnings from "./pages/vendor/VendorEarnings.jsx";
@@ -48,6 +49,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/admin/bookings" element={<AdminRoute><ManageBookings /></AdminRoute>} />
 
         <Route path="/organizer/events" element={<ManageEvents />} />
+        <Route path="/organizer/vendors/book" element={<BookVendors />} />
 
         {/* Vendor Routes */}
         <Route path="/vendor/dashboard" element={<VendorRoute><VendorDashboard /></VendorRoute>} />

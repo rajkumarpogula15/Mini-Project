@@ -40,7 +40,10 @@ router.put('/:id', protect, async (req, res) => {
 
 router.get('/vendor', protect, async (req, res) => {
   try {
-    const bookings = await Booking.find({ vendor: req.user._id }).sort({ createdAt: -1 });
+    const bookings = await Booking.find({ vendor: req.user._id })
+      .populate('organizer', 'name email phone') // Add this line
+      .sort({ createdAt: -1 });
+
     res.json(bookings);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -91,6 +94,27 @@ router.get('/top-vendors', protect, async (req, res) => {
     ]);
 
     res.json(topVendors);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// PUT /api/bookings/cancel/:id - Organizer cancels booking
+router.put('/cancel/:id', protect, async (req, res) => {
+  try {
+    const booking = await Booking.findById(req.params.id);
+
+    if (!booking) return res.status(404).json({ message: "Booking not found" });
+
+    if (booking.organizer.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "Unauthorized action" });
+    }
+
+    booking.status = 'cancelled';
+    booking.cancelledBy = 'organizer';
+    await booking.save();
+
+    res.json({ message: 'Booking cancelled successfully', booking });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

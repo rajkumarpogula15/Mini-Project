@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './App.css';
 
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -18,7 +17,7 @@ function App() {
 
   // Apply theme to body
   useEffect(() => {
-    document.body.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+    document.body.className = darkMode ? 'dark' : '';
     localStorage.setItem('theme', darkMode ? 'dark' : 'light');
   }, [darkMode]);
 
@@ -29,41 +28,58 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className={`min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-800'} transition-colors duration-300`}>
       <Navbar />
-      <div className="theme-toggle-container">
-        <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
+
+      <div className="flex justify-end p-4">
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          className="text-sm px-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+        >
           {darkMode ? '🌞 Light Mode' : '🌙 Dark Mode'}
         </button>
       </div>
 
-      <div className="homepage-container">
+      <main className="space-y-20 px-4">
         <Hero />
         <WhyChooseUs />
         <Categories />
 
-        <div className="button-group">
-          <button onClick={() => navigate('/register-vendor')} className="action-button green">
+        <section className="flex flex-wrap justify-center gap-4 px-4">
+          <button
+            onClick={() => navigate('/register-vendor')}
+            className="bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700 transition-all duration-300 transform hover:scale-105"
+          >
             Register as Vendor
           </button>
-          <button onClick={() => navigate('/vendors')} className="action-button blue">
+          <button
+            onClick={() => navigate('/vendors')}
+            className="bg-sky-500 text-white px-6 py-3 rounded-xl hover:bg-sky-600 transition-all duration-300 transform hover:scale-105"
+          >
             Browse Vendors
           </button>
-          <button onClick={() => navigate('/dashboard')} className="action-button purple">
+          <button
+            onClick={() => navigate('/dashboard')}
+            className="bg-purple-600 text-white px-6 py-3 rounded-xl hover:bg-purple-700 transition-all duration-300 transform hover:scale-105"
+          >
             Organizer Dashboard
           </button>
-          <button onClick={() => navigate('/login')} className="action-button dark">
+          <button
+            onClick={() => navigate('/login')}
+            className="bg-gray-800 text-white px-6 py-3 rounded-xl hover:bg-gray-900 transition-all duration-300 transform hover:scale-105"
+          >
             Login
           </button>
-        </div>
+        </section>
 
         <Testimonials />
         <Stats />
         <FAQ />
         <CTA />
-        <Footer />
-      </div>
-    </>
+      </main>
+
+      <Footer />
+    </div>
   );
 }
 

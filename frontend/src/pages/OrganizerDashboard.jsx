@@ -15,6 +15,25 @@ function OrganizerDashboard() {
   const [profileCompletion, setProfileCompletion] = useState(0);
   const [topVendors, setTopVendors] = useState([]);
 
+  const handleCancel = async (bookingId) => {
+    const confirm = window.confirm("Are you sure you want to cancel this booking?");
+    if (!confirm) return;
+  
+    try {
+      await axios.put(
+        `http://localhost:5000/api/bookings/cancel/${bookingId}`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      alert("Booking cancelled.");
+      fetchDashboardData(); // Refresh data
+    } catch (err) {
+      console.error("Cancel failed:", err.message);
+      alert("Something went wrong.");
+    }
+  };
+  
+
   useEffect(() => {
     fetchDashboardData();
   }, []);
@@ -97,7 +116,27 @@ function OrganizerDashboard() {
             <div key={booking._id} className="bg-white shadow p-4 rounded">
               <p><strong>Vendor ID:</strong> {booking.vendor}</p>
               <p><strong>Event Date:</strong> {new Date(booking.eventDate).toLocaleDateString()}</p>
-              <p><strong>Status:</strong> <span className="capitalize">{booking.status}</span></p>
+              <p>
+  <strong>Status:</strong>{" "}
+  <span className={`capitalize font-semibold ${
+    booking.status === "pending" ? "text-yellow-600" :
+    booking.status === "accepted" ? "text-green-600" :
+    booking.status === "rejected" ? "text-red-600" :
+    "text-gray-500"
+  }`}>
+    {booking.status}
+  </span>
+</p>
+
+{booking.status === "pending" && (
+  <button
+    onClick={() => handleCancel(booking._id)}
+    className="mt-2 inline-block bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm"
+  >
+    Cancel Booking
+  </button>
+)}
+
               <p><strong>Message:</strong> {booking.message || "—"}</p>
             </div>
           ))}
