@@ -23,6 +23,9 @@ import VendorEarnings from "./pages/vendor/VendorEarnings.jsx";
 import VendorReviews from "./pages/vendor/VendorReviews.jsx";
 import VendorProfile from "./pages/vendor/VendorProfile.jsx";
 import ManageServices from "./pages/vendor/ManageServices.jsx";
+import VendorRoute from "./routes/VendorRoute";
+import AdminRoute from "./routes/AdminRoutes.jsx";
+import OrganizerRoute from "./routes/OrganizerRoute";
 import './App.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -39,19 +42,20 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/vendors" element={<VendorList />} />
         <Route path="/vendor-dashboard" element={<VendorDashboard />} />
         <Route path="/booking/:id" element={<BookingConfirmation />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/vendors" element={<ManageVendors />} />
-        <Route path="/admin/users" element={<ManageUsers />} />
-        <Route path="/admin/bookings" element={<ManageBookings />} />
+        <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+        <Route path="/admin/vendors" element={<AdminRoute><ManageVendors /></AdminRoute>} />
+        <Route path="/admin/users" element={<AdminRoute><ManageUsers /></AdminRoute>} />
+        <Route path="/admin/bookings" element={<AdminRoute><ManageBookings /></AdminRoute>} />
+
         <Route path="/organizer/events" element={<ManageEvents />} />
 
         {/* Vendor Routes */}
-        <Route path="/vendor/dashboard" element={<VendorDashboard />} />
-        <Route path="/vendor/services" element={<ManageServices />} />
-        <Route path="/vendor/bookings" element={<VendorBookings />} />
-        <Route path="/vendor/earnings" element={<VendorEarnings />} />
-        <Route path="/vendor/reviews" element={<VendorReviews />} />
-        <Route path="/vendor/profile" element={<VendorProfile />} />
+        <Route path="/vendor/dashboard" element={<VendorRoute><VendorDashboard /></VendorRoute>} />
+        <Route path="/vendor/services" element={<VendorRoute><ManageServices /></VendorRoute>} />
+        <Route path="/vendor/bookings" element={<VendorRoute><VendorBookings /></VendorRoute>} />
+        <Route path="/vendor/earnings" element={<VendorRoute><VendorEarnings /></VendorRoute>} />
+        <Route path="/vendor/reviews" element={<VendorRoute><VendorReviews /></VendorRoute>} />
+        <Route path="/vendor/profile" element={<VendorRoute><VendorProfile /></VendorRoute>} />
 
 
       </Routes>

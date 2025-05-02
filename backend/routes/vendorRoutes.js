@@ -1,7 +1,7 @@
 import express from 'express';
 import { createVendor } from '../controllers/vendorController.js';
 import { protect } from '../middlewares/authMiddleware.js';
-import Vendor from '../models/Vendor.js'; // ✅ This was missing
+import Vendor from '../models/Vendor.js';
 
 const router = express.Router();
 
@@ -33,5 +33,14 @@ router.put('/admin/update/:id', protect, async (req, res) => {
   }
 });
 
+// ✅ Get services created by the logged-in vendor
+router.get('/myservices', protect, async (req, res) => {
+  try {
+    const vendorServices = await Vendor.find({ createdBy: req.user._id });
+    res.json(vendorServices);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 export default router;

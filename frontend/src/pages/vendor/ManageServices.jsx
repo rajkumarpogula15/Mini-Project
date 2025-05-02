@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import VendorSidebarLayout from "../../components/VendorSidebarLayout";
 import ServiceCard from "../../components/ServiceCard";
+import AddServiceModal from "../../components/AddServiceModal"; 
 
 function ManageServices() {
   const [services, setServices] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
   const token = localStorage.getItem("userToken");
 
   const fetchServices = async () => {
@@ -42,6 +45,21 @@ function ManageServices() {
   return (
     <VendorSidebarLayout>
       <h1 className="text-2xl font-bold mb-4">🛠 Manage Your Services</h1>
+      <div className="mb-6">
+  <button
+    onClick={() => setShowModal(true)}
+    className="bg-green-600 text-white px-4 py-2 rounded"
+  >
+    ➕ Add Service
+  </button>
+</div>
+
+<AddServiceModal
+  isOpen={showModal}
+  onClose={() => setShowModal(false)}
+  onServiceAdded={fetchServices}
+/>
+
 
       {services.length === 0 ? (
         <p className="text-gray-500">No services added yet.</p>
