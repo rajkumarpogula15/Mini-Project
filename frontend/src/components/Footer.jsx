@@ -28,7 +28,7 @@ function Footer() {
             <input 
               type="email" 
               placeholder="Enter your email" 
-              className="p-2 rounded-md text-gray-700" 
+              className="p-2 rounded-md text-gray-300  focus:outline-none focus:ring-2 focus:ring-green-500 mb-2" 
             />
             <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md mt-2">
               Subscribe
@@ -37,21 +37,22 @@ function Footer() {
         </div>
 
         {/* Social Media Links */}
-        <div className="text-center mb-8">
-          <a href="https://instagram.com" className="mx-4 text-xl hover:text-green-400">
-            <FaInstagram />
-          </a>
-          <a href="https://facebook.com" className="mx-4 text-xl hover:text-green-400">
-            <FaFacebook />
-          </a>
-          <a href="https://linkedin.com" className="mx-4 text-xl hover:text-green-400">
-            <FaLinkedin />
-          </a>
-        </div>
+<div className="flex justify-center items-center gap-6 mb-8 text-xl">
+  <a href="https://instagram.com" className="hover:text-green-400">
+    <FaInstagram />
+  </a>
+  <a href="https://facebook.com" className="hover:text-green-400">
+    <FaFacebook />
+  </a>
+  <a href="https://linkedin.com" className="hover:text-green-400">
+    <FaLinkedin />
+  </a>
+</div>
+
 
         {/* Footer Bottom */}
         <div className="text-center text-sm">
-          <p>© 2025 EventPro. All Rights Reserved.</p>
+          <p>© 2025 EventEase. All Rights Reserved.</p>
         </div>
       </div>
     </footer>

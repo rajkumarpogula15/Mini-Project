@@ -1,5 +1,5 @@
 import './CTA.css';
-
+import './Contact'
 function CTA() {
   return (
     <section className="cta">
@@ -14,6 +14,7 @@ function CTA() {
                 
 <button
   class="relative cursor-pointer py-4 px-8 text-center font-barlow inline-flex justify-center text-base uppercase text-[#101050] rounded-lg border-solid transition-transform duration-300 ease-in-out group outline-offset-4  focus:outline-2 focus:outline-[#101050] focus:outline-offset-4 overflow-hidden bg-amber-100"
+  onClick={() => window.location.href = '/components/Contact'}
 >
   <span class="relative z-20">Contact us</span>
 

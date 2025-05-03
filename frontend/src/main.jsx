@@ -28,6 +28,7 @@ import VendorRoute from "./routes/VendorRoute";
 import AdminRoute from "./routes/AdminRoutes.jsx";
 import OrganizerRoute from "./routes/OrganizerRoute";
 import './App.css';
+import Contact from './components/Contact.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -47,7 +48,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/admin/vendors" element={<AdminRoute><ManageVendors /></AdminRoute>} />
         <Route path="/admin/users" element={<AdminRoute><ManageUsers /></AdminRoute>} />
         <Route path="/admin/bookings" element={<AdminRoute><ManageBookings /></AdminRoute>} />
+        <Route path="/contact" element={<Contact />} />
 
+        {/* Organizer Routes */}
         <Route path="/organizer/events" element={<ManageEvents />} />
         <Route path="/organizer/vendors/book" element={<BookVendors />} />
 
