@@ -1,0 +1,128 @@
+.cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3rem 2rem;
+    background-color: #f5f9ff;
+    border-radius: 12px;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .cta-text {
+    flex: 1;
+    min-width: 280px;
+  }
+  
+  .cta-inner {
+    margin-left: 4.5rem;
+  }
+  
+  .cta-heading {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #222;
+  }
+  
+  .cta-description {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Button styling */
+  /* .cta-button {
+    position: relative;
+    cursor: pointer;
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: #101050;
+    border: 2px solid #101050;
+    background-color: transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  } */
+  
+  .shine {
+    position: absolute;
+    left: -75%;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(12deg);
+    filter: blur(10px);
+    transition: all 1s ease-in-out;
+  }
+  
+  .cta-button:hover .shine {
+    left: 125%;
+  }
+  
+  /* Fancy borders */
+  .border {
+    position: absolute;
+    transition: all 0.3s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .top-left {
+    width: 50%;
+    height: 20%;
+    top: 0;
+    left: 0;
+    border-left: 2px solid #101050;
+    border-top: 2px solid #101050;
+    border-top-left-radius: 8px;
+  }
+  
+  .top-right {
+    width: 50%;
+    top: 0;
+    right: 0;
+    height: 60%;
+    border-right: 2px solid #101050;
+    border-top: 2px solid #101050;
+    border-top-right-radius: 8px;
+  }
+  
+  .bottom-left {
+    width: 50%;
+    bottom: 0;
+    left: 0;
+    height: 60%;
+    border-left: 2px solid #101050;
+    border-bottom: 2px solid #101050;
+    border-bottom-left-radius: 8px;
+  }
+  
+  .bottom-right {
+    width: 50%;
+    height: 20%;
+    bottom: 0;
+    right: 0;
+    border-right: 2px solid #101050;
+    border-bottom: 2px solid #101050;
+    border-bottom-right-radius: 8px;
+  }
+  
+  /* Image */
+  .cta-image {
+    flex: 1;
+    min-width: 280px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .cta-img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-right: 4.5rem;
+  }
+  

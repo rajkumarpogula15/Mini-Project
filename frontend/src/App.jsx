@@ -32,15 +32,10 @@ function App() {
       <Navbar />
 
       <div className="flex justify-end p-4">
-        <button
-          onClick={() => setDarkMode(!darkMode)}
-          className="text-sm px-4 py-2 rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
-        >
-          {darkMode ? '🌞 Light Mode' : '🌙 Dark Mode'}
-        </button>
+        
       </div>
 
-      <main className="space-y-20  min-h-2 px-4">
+      <main className="space-y-20 px-4">
         <Hero />
         <WhyChooseUs />
         <Categories />
