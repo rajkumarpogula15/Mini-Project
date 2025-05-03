@@ -40,7 +40,7 @@ function App() {
         </button>
       </div>
 
-      <main className="space-y-20 px-4">
+      <main className="space-y-20  min-h-2 px-4">
         <Hero />
         <WhyChooseUs />
         <Categories />
