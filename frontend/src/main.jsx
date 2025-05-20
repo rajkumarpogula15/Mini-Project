@@ -18,13 +18,16 @@ import ManageUsers from './pages/admin/ManageUsers';
 import ManageBookings from './pages/admin/ManageBookings';
 import ManageEvents from './pages/organizer/ManageEvents';
 import BookVendors from './pages/organizer/BookVendors.jsx';
-import VendorDashboard from "./pages/vendor/VendorDashboard.jsx";
-import VendorBookings from "./pages/vendor/VendorBookings.jsx";
-import VendorEarnings from "./pages/vendor/VendorEarnings.jsx";
-import VendorReviews from "./pages/vendor/VendorReviews.jsx";
-import VendorProfile from "./pages/vendor/VendorProfile.jsx";
-import ManageServices from "./pages/vendor/ManageServices.jsx";
-import VendorRoute from "./routes/VendorRoute";
+// Import renamed expert components instead of vendor
+import ExpertDashboard from "./pages/expert/ExpertDashboard.jsx";
+import ManageServices from "./pages/expert/ManageServices.jsx";
+import ExpertBookings from "./pages/expert/ExpertBookings.jsx";
+import ExpertEarnings from "./pages/expert/ExpertEarnings.jsx";
+import ExpertReviews from "./pages/expert/ExpertReviews.jsx";
+import ExpertProfile from "./pages/expert/ExpertProfile.jsx";
+import ExpertRoute from "./routes/ExpertRoute"; // Same logic as VendorRoute
+
+// import VendorRoute from "./routes/VendorRoute";
 import AdminRoute from "./routes/AdminRoutes.jsx";
 import OrganizerRoute from "./routes/OrganizerRoute";
 import './App.css';
@@ -42,7 +45,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/my-events" element={<MyEvents />} />
         <Route path="/register-vendor" element={<RegisterVendor />} />
         <Route path="/vendors" element={<VendorList />} />
-        <Route path="/vendor-dashboard" element={<VendorDashboard />} />
+        {/* <Route path="/vendor-dashboard" element={<VendorDashboard />} /> */}
         <Route path="/booking/:id" element={<BookingConfirmation />} />
         <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
         <Route path="/admin/vendors" element={<AdminRoute><ManageVendors /></AdminRoute>} />
@@ -55,13 +58,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/organizer/vendors/book" element={<BookVendors />} />
 
         {/* Vendor Routes */}
-        <Route path="/vendor/dashboard" element={<VendorRoute><VendorDashboard /></VendorRoute>} />
-        <Route path="/vendor/services" element={<VendorRoute><ManageServices /></VendorRoute>} />
-        <Route path="/vendor/bookings" element={<VendorRoute><VendorBookings /></VendorRoute>} />
-        <Route path="/vendor/earnings" element={<VendorRoute><VendorEarnings /></VendorRoute>} />
-        <Route path="/vendor/reviews" element={<VendorRoute><VendorReviews /></VendorRoute>} />
-        <Route path="/vendor/profile" element={<VendorRoute><VendorProfile /></VendorRoute>} />
-
+        {/* Expert Routes */}
+          <Route path="/expert/dashboard" element={<ExpertRoute><ExpertDashboard /></ExpertRoute>} />
+          <Route path="/expert/services" element={<ExpertRoute><ManageServices /></ExpertRoute>} />
+          <Route path="/expert/bookings" element={<ExpertRoute><ExpertBookings /></ExpertRoute>} />
+          <Route path="/expert/earnings" element={<ExpertRoute><ExpertEarnings /></ExpertRoute>} />
+          <Route path="/expert/reviews" element={<ExpertRoute><ExpertReviews /></ExpertRoute>} />
+          <Route path="/expert/profile" element={<ExpertRoute><ExpertProfile /></ExpertRoute>} />
 
       </Routes>
     </BrowserRouter>

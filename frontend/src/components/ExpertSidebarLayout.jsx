@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 
-function VendorSidebarLayout({ children }) {
+function ExpertSidebarLayout({ children }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -13,16 +13,18 @@ function VendorSidebarLayout({ children }) {
       {/* Sidebar */}
       <aside className="w-64 bg-white shadow-lg p-6 flex flex-col justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-green-600 mb-6">Vendor Panel</h2>
+          <h2 className="text-2xl font-bold text-blue-700 mb-6">Expert Panel</h2>
+
           <nav className="space-y-3 text-gray-700 font-medium">
-            <Link to="/vendor/dashboard" className="block hover:text-green-600">🏠 Dashboard</Link>
-            <Link to="/vendor/services" className="block hover:text-green-600">🛠 Manage Services</Link>
-            <Link to="/vendor/bookings" className="block hover:text-green-600">📅 Bookings</Link>
-            <Link to="/vendor/earnings" className="block hover:text-green-600">💰 Earnings</Link>
-            <Link to="/vendor/reviews" className="block hover:text-green-600">⭐ Reviews</Link>
-            <Link to="/vendor/profile" className="block hover:text-green-600">👤 Profile</Link>
+            <Link to="/expert/dashboard" className="block hover:text-blue-700">🏠 Dashboard</Link>
+            <Link to="/expert/services" className="block hover:text-blue-700">📋 Manage Sessions</Link>
+            <Link to="/expert/bookings" className="block hover:text-blue-700">📅 Bookings</Link>
+            <Link to="/expert/earnings" className="block hover:text-blue-700">💰 Earnings</Link>
+            <Link to="/expert/reviews" className="block hover:text-blue-700">⭐ Reviews</Link>
+            <Link to="/expert/profile" className="block hover:text-blue-700">👤 Profile</Link>
           </nav>
         </div>
+
         <button
           onClick={handleLogout}
           className="mt-6 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded"
@@ -37,4 +39,4 @@ function VendorSidebarLayout({ children }) {
   );
 }
 
-export default VendorSidebarLayout;
+export default ExpertSidebarLayout;

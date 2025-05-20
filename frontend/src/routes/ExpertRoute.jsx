@@ -1,14 +1,14 @@
 import { Navigate } from "react-router-dom";
 
-function VendorRoute({ children }) {
+function ExpertRoute({ children }) {
   const token = localStorage.getItem("userToken");
   const role = localStorage.getItem("userRole");
 
-  if (!token || role !== "vendor") {
+  if (!token || role !== "expert") {
     return <Navigate to="/login" replace />;
   }
 
   return children;
 }
 
-export default VendorRoute;
+export default ExpertRoute;

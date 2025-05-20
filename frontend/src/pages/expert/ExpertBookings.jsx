@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import VendorSidebarLayout from "../../components/VendorSidebarLayout";
+import ExpertSidebarLayout from "../../components/ExpertSidebarLayout";
 
-function VendorBookings() {
+function ExpertBookings() {
   const [bookings, setBookings] = useState([]);
   const token = localStorage.getItem("userToken");
 
@@ -13,7 +13,7 @@ function VendorBookings() {
       });
       setBookings(res.data);
     } catch (err) {
-      console.error("Failed to load vendor bookings:", err.message);
+      console.error("Failed to load expert bookings:", err.message);
     }
   };
 
@@ -24,7 +24,7 @@ function VendorBookings() {
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      fetchBookings(); // Refresh after update
+      fetchBookings();
     } catch (err) {
       console.error(`Failed to update booking:`, err.message);
     }
@@ -35,9 +35,8 @@ function VendorBookings() {
   }, []);
 
   return (
-    <VendorSidebarLayout>
-      <h1 className="text-2xl font-bold mb-4">📅 Your Bookings</h1>
-
+    <ExpertSidebarLayout>
+      <h1 className="text-2xl font-bold mb-4">📅 Expert Booking Requests</h1>
       {bookings.length === 0 ? (
         <p className="text-gray-500">No bookings yet.</p>
       ) : (
@@ -80,8 +79,8 @@ function VendorBookings() {
           ))}
         </div>
       )}
-    </VendorSidebarLayout>
+    </ExpertSidebarLayout>
   );
 }
 
-export default VendorBookings;
+export default ExpertBookings;

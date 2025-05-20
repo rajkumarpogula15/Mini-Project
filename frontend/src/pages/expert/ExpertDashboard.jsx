@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import VendorSidebarLayout from "../../components/VendorSidebarLayout";
+import ExpertSidebarLayout from "../../components/ExpertSidebarLayout";
 import axios from "axios";
 
-function VendorDashboard() {
+function ExpertDashboard() {
   const [stats, setStats] = useState({
     services: 0,
     bookings: 0,
@@ -17,10 +17,10 @@ function VendorDashboard() {
       try {
         const headers = { Authorization: `Bearer ${token}` };
         const [services, bookings, earnings, reviews] = await Promise.all([
-          axios.get("http://localhost:5000/api/vendors/myservices", { headers }),
-          axios.get("http://localhost:5000/api/bookings/vendor", { headers }),
-          axios.get("http://localhost:5000/api/vendors/earnings", { headers }),
-          axios.get("http://localhost:5000/api/vendors/reviews", { headers }),
+          axios.get("http://localhost:5000/api/experts/myservices", { headers }),
+          axios.get("http://localhost:5000/api/bookings/expert", { headers }),
+          axios.get("http://localhost:5000/api/experts/earnings", { headers }),
+          axios.get("http://localhost:5000/api/experts/reviews", { headers }),
         ]);
 
         setStats({
@@ -31,7 +31,7 @@ function VendorDashboard() {
         });
 
       } catch (err) {
-        console.error("Vendor stats fetch failed:", err.message);
+        console.error("Expert stats fetch failed:", err.message);
       }
     };
 
@@ -39,16 +39,16 @@ function VendorDashboard() {
   }, []);
 
   return (
-    <VendorSidebarLayout>
-      <h1 className="text-3xl font-bold text-center mb-6">Welcome Vendor 📦</h1>
+    <ExpertSidebarLayout>
+      <h1 className="text-3xl font-bold text-center mb-6">Welcome Expert 🧠</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-6">
-        <StatCard label="🛠 Services" value={stats.services} />
+        <StatCard label="📋 Sessions/Services" value={stats.services} />
         <StatCard label="📅 Bookings" value={stats.bookings} />
         <StatCard label="💰 Earnings (₹)" value={stats.earnings} />
         <StatCard label="⭐ Reviews" value={stats.reviews} />
       </div>
-    </VendorSidebarLayout>
+    </ExpertSidebarLayout>
   );
 }
 
@@ -61,4 +61,4 @@ function StatCard({ label, value }) {
   );
 }
 
-export default VendorDashboard;
+export default ExpertDashboard;

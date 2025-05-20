@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import VendorSidebarLayout from "../../components/VendorSidebarLayout";
+import ExpertSidebarLayout from "../../components/ExpertSidebarLayout";
 
-function VendorProfile() {
+function ExpertProfile() {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -43,8 +43,8 @@ function VendorProfile() {
   };
 
   return (
-    <VendorSidebarLayout>
-      <h1 className="text-2xl font-bold mb-4">👤 Update Profile</h1>
+    <ExpertSidebarLayout>
+      <h1 className="text-2xl font-bold mb-4">👤 Update Expert Profile</h1>
       <form onSubmit={handleSubmit} className="max-w-lg space-y-4 bg-white p-6 rounded shadow">
         <input
           type="text"
@@ -84,8 +84,8 @@ function VendorProfile() {
           Save Changes
         </button>
       </form>
-    </VendorSidebarLayout>
+    </ExpertSidebarLayout>
   );
 }
 
-export default VendorProfile;
+export default ExpertProfile;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import VendorSidebarLayout from "../../components/VendorSidebarLayout";
+import VendorSidebarLayout from "../../components/ExpertSidebarLayout";
 import ServiceCard from "../../components/ServiceCard";
 import AddServiceModal from "../../components/AddServiceModal"; 
 
