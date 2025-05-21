@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios"; // <-- Import axios
+import axios from "axios";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -7,7 +7,7 @@ function Register() {
     email: "",
     password: "",
     phone: "",
-    role: "organizer",
+    role: "organizer", // default role
   });
 
   const [error, setError] = useState("");
@@ -23,139 +23,83 @@ function Register() {
     setSuccess("");
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/users/register",
-        formData
-      );
+      const response = await axios.post("http://localhost:5000/api/users/register", formData);
       console.log(response.data);
-      setSuccess("Registration successful! 🎉");
+      setSuccess("🎉 Registration successful! You can now login.");
     } catch (err) {
-      console.error(err.response.data.message);
-      setError(err.response.data.message || "Something went wrong");
+      console.error(err.response?.data?.message || err.message);
+      setError(err.response?.data?.message || "Something went wrong");
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-800 via-purple-700 to-pink-600">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-3xl shadow-2xl w-full max-w-lg transition-transform transform hover:scale-105"
+        className="bg-white p-10 rounded-3xl shadow-xl w-full max-w-lg transition-all"
       >
-        <h2 className="text-3xl font-semibold mb-6 text-center text-gray-800">
-          Register
-        </h2>
+        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Join TechEvents 🚀</h2>
 
-        {/* Error and Success Messages */}
         {error && (
-          <div className="mb-4 text-red-500 flex items-center space-x-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-red-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M18 6L6 18M6 6l12 12"
-              />
-            </svg>
-            <span>{error}</span>
-          </div>
+          <p className="mb-4 text-red-500 text-sm bg-red-100 p-2 rounded">{error}</p>
         )}
         {success && (
-          <div className="mb-4 text-green-500 flex items-center space-x-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-green-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-            <span>{success}</span>
-          </div>
+          <p className="mb-4 text-green-600 text-sm bg-green-100 p-2 rounded">{success}</p>
         )}
 
-        <div className="ml-8">
-          {/* Form Fields */}
+        <div className="space-y-4">
           <input
             type="text"
             name="name"
-            placeholder="Name"
+            placeholder="Full Name"
             value={formData.name}
             onChange={handleChange}
-            className="w-96 p-4 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
             required
           />
-          <br />
-          <br />
-          <br />
-
           <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="Email Address"
             value={formData.email}
             onChange={handleChange}
-            className="w-96 p-4 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
             required
           />
-          <br />
-          <br />
-          <br />
           <input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Create Password"
             value={formData.password}
             onChange={handleChange}
-            className="w-96 p-4 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
             required
           />
-
-          <br />
-          <br />
-          <br />
           <input
             type="text"
             name="phone"
-            placeholder="Phone"
+            placeholder="Phone Number"
             value={formData.phone}
             onChange={handleChange}
-            className="w-96 p-4 mb-8 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
             required
           />
-          <br />
-          <br />
-          <br />
           <select
             name="role"
             value={formData.role}
             onChange={handleChange}
-            className="w-96 p-4 mb-8 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
-            required
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
           >
-            <option value="organizer">Organizer</option>
-            <option value="vendor">Vendor</option>
+            <option value="organizer">Event Organizer</option>
+            <option value="expert">Tech Expert / Speaker</option>
             <option value="attendee">Attendee</option>
           </select>
-          <br />
-          <br />
-          <br />
+
           <button
             type="submit"
-            className="w-1/2 ml-20 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-lg shadow-md transition duration-200 ease-in-out transform hover:scale-105"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg font-semibold transition-transform transform hover:scale-105"
           >
-            Register
+            Register Now
           </button>
         </div>
       </form>

@@ -1,6 +1,6 @@
 import express from 'express';
 import User from '../models/User.js';
-import Vendor from '../models/Vendor.js';
+import Expert from '../models/Expert.js';
 import Booking from '../models/Booking.js';
 import { protect } from '../middlewares/authMiddleware.js';
 
@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/summary', protect, async (req, res) => {
   try {
     const totalUsers = await User.countDocuments();
-    const totalVendors = await Vendor.countDocuments();
+    const totalVendors = await Expert.countDocuments();
     const totalBookings = await Booking.countDocuments();
 
     res.json({ totalUsers, totalVendors, totalBookings });

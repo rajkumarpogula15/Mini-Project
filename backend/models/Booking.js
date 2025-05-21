@@ -3,12 +3,12 @@ import mongoose from 'mongoose';
 const bookingSchema = new mongoose.Schema({
   organizer: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'User', // Organizer or event requester
     required: true,
   },
-  vendor: {
+  expert: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Vendor',
+    ref: 'Expert', // Previously Vendor
     required: true,
   },
   eventDate: {
@@ -22,8 +22,8 @@ const bookingSchema = new mongoose.Schema({
     default: 'pending',
   },
   cancelledBy: {
-    type: String, // 'organizer' or 'vendor'
-    default: null
+    type: String, // 'organizer' or 'expert'
+    default: null,
   },
 }, { timestamps: true });
 
