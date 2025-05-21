@@ -5,7 +5,7 @@ function ExpertSidebarLayout({ children }) {
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate("/login");
+    navigate("/");
   };
 
   return (

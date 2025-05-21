@@ -1,29 +1,51 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import VendorSidebarLayout from "../../components/ExpertSidebarLayout";
+import ExpertSidebarLayout from "../../components/ExpertSidebarLayout";
 
-function VendorReviews() {
+function ExpertReviews() {
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const token = localStorage.getItem("userToken");
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/vendors/reviews", {
+        const res = await axios.get("http://localhost:5000/api/experts/reviews", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setReviews(res.data);
+
+        console.log("Fetched reviews:", res.data);
+
+        // Normalize data: ensure it's an array
+        const data = res.data;
+        const reviewsArray = Array.isArray(data)
+          ? data
+          : Array.isArray(data.reviews)
+          ? data.reviews
+          : [];
+
+        setReviews(reviewsArray);
       } catch (err) {
         console.error("Failed to load reviews:", err.message);
+        setError("Unable to load reviews.");
+      } finally {
+        setLoading(false);
       }
     };
+
     fetchReviews();
   }, []);
 
   return (
-    <VendorSidebarLayout>
+    <ExpertSidebarLayout>
       <h1 className="text-2xl font-bold mb-4">⭐ Your Reviews</h1>
-      {reviews.length === 0 ? (
+
+      {loading ? (
+        <p className="text-gray-500">Loading reviews...</p>
+      ) : error ? (
+        <p className="text-red-500">{error}</p>
+      ) : reviews.length === 0 ? (
         <p className="text-gray-500">No reviews yet.</p>
       ) : (
         <div className="space-y-4">
@@ -36,8 +58,8 @@ function VendorReviews() {
           ))}
         </div>
       )}
-    </VendorSidebarLayout>
+    </ExpertSidebarLayout>
   );
 }
 
-export default VendorReviews;
+export default ExpertReviews;

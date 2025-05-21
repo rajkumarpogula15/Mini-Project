@@ -78,7 +78,7 @@ router.put('/admin/users/:id/block', protect, async (req, res) => {
 // ✅ Public Route: Get all users with role 'expert' (for expert listing page)
 router.get('/experts/all', async (req, res) => {
   try {
-    const experts = await User.find({ role: 'vendor' }).select('-password');
+    const experts = await User.find({ role: 'expert' }).select('-password');
     res.json(experts);
   } catch (err) {
     res.status(500).json({ message: err.message });

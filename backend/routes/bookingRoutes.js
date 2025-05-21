@@ -38,7 +38,7 @@ router.put('/:id', protect, async (req, res) => {
   }
 });
 
-router.get('/vendor', protect, async (req, res) => {
+router.get('/expert', protect, async (req, res) => {
   try {
     const bookings = await Booking.find({ vendor: req.user._id })
       .populate('organizer', 'name email phone') // Add this line

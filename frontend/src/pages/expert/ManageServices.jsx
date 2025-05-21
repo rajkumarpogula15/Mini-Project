@@ -12,7 +12,7 @@ function ManageServices() {
 
   const fetchServices = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/vendors/myservices", {
+      const res = await axios.get("http://localhost:5000/api/experts/myservices", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setServices(res.data);
@@ -24,7 +24,7 @@ function ManageServices() {
   const deleteService = async (serviceId) => {
     if (!window.confirm("Are you sure you want to delete this service?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/vendors/${serviceId}`, {
+      await axios.delete(`http://localhost:5000/api/experts/${serviceId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchServices(); // Refresh list

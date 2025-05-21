@@ -18,16 +18,28 @@ function ExpertProfile() {
         const res = await axios.get("http://localhost:5000/api/users/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setFormData(res.data);
+
+        const data = res.data || {};
+        setFormData({
+          name: data.name || "",
+          phone: data.phone || "",
+          bio: data.bio || "",
+          photo: data.photo || ""
+        });
+
       } catch (err) {
         console.error("Profile fetch failed:", err.message);
       }
     };
+
     fetchProfile();
-  }, []);
+  }, [token]);
 
   const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -79,7 +91,7 @@ function ExpertProfile() {
         />
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded w-full"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full"
         >
           Save Changes
         </button>

@@ -34,7 +34,7 @@ function Login() {
           navigate("/organizer/events");
           break;
         case "expert":
-          navigate("/vendor/dashboard");
+          navigate("/expert/dashboard");
           break;
         default:
           navigate("/dashboard");

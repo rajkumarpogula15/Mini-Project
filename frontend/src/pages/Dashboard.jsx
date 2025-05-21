@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import VendorDashboard from "./expert/ExpertDashboard"; // ✅ import
+import ExpertDashboard from "./expert/ExpertDashboard"; // ✅ import
 import OrganizerDashboard from "./OrganizerDashboard"; // 🛠 create this next
 import AdminDashboard from "./AdminDashboard";
 
@@ -24,7 +24,7 @@ function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       {role === 'organizer' && <OrganizerDashboard />}
-      {role === 'vendor' && <VendorDashboard />}
+      {role === 'expert' && <ExpertDashboard />}
       {role === 'admin' && <AdminDashboard />}
       {role === 'attendee' && (
         <div className="text-center text-gray-700 text-xl">
