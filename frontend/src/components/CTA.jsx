@@ -1,21 +1,25 @@
-// import './CTA.css';
-// import './Contact';
-import './CTA.css';
 import { useNavigate } from 'react-router-dom';
 
 const CTA = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="cta">
-      <div className="cta-text">
-        <div className="cta-inner">
-          <h2 className="cta-heading">Ready to Plan Your Event?</h2>
-          <p className="cta-description">
+    <section
+      className="flex flex-wrap justify-between items-center px-8 py-12 gap-8 bg-[#f5f9ff] rounded-[12px]"
+    >
+     
+
+      {/* Text on the right */}
+      <div className="flex-1 min-w-[280px]">
+        <div className="ml-[4.5rem]">
+          <h2 className="text-[2rem] font-semibold mb-4 text-[#222]">
+            Ready to Plan Your Event?
+          </h2>
+          <p className="text-[1.1rem] text-[#555] mb-6">
             Get started and make your event unforgettable!
           </p>
 
-          <button
+                   <button
             className="relative cursor-pointer py-4 px-8 text-center font-barlow inline-flex justify-center text-base uppercase text-[#101050] rounded-lg border-solid transition-transform duration-300 ease-in-out group outline-offset-4 focus:outline-2 focus:outline-[#101050] focus:outline-offset-4 overflow-hidden bg-amber-100"
             onClick={() => navigate('/contact')}
           >
@@ -31,11 +35,13 @@ const CTA = () => {
         </div>
       </div>
 
-      <div className="cta-image">
+
+       {/* Image on the left */}
+      <div className="flex-1 min-w-[580px] flex justify-center">
         <img
           src="images/patner.png"
           alt="Partner"
-          className="cta-img"
+          className="w-1/2 max-w-[500px] h-auto rounded-[10px] shadow-md mr-[3.5rem]"
         />
       </div>
     </section>
