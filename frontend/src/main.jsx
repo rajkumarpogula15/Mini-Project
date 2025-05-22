@@ -19,10 +19,10 @@ import ManageBookings from './pages/admin/ManageBookings'
 import ManageEvents from './pages/organizer/ManageEvents'
 import BookVendors from './pages/organizer/BookVendors.jsx'
 
-import Contact from './components/Contact.jsx'
+// import Contact from './components/Contact.jsx'
 // import VendorRoute from "./routes/VendorRoute";
 import AdminRoute from "./routes/AdminRoutes.jsx";
-import OrganizerRoute from "./routes/OrganizerRoute";
+// import OrganizerRoute from "./routes/OrganizerRoute";
 import './App.css';
  import Contact from './pages/Contact.jsx'
 
@@ -42,7 +42,7 @@ import ExploreEvents from './pages/attendee/EventDetail.jsx'
 
 // ✅ Route Protection
 import ExpertRoute from "./routes/ExpertRoute"
-import AdminRoute from "./routes/AdminRoutes.jsx"
+// import AdminRoute from "./routes/AdminRoutes.jsx"
 import OrganizerRoute from "./routes/OrganizerRoute"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
