@@ -19,7 +19,15 @@ import ManageBookings from './pages/admin/ManageBookings'
 import ManageEvents from './pages/organizer/ManageEvents'
 import BookVendors from './pages/organizer/BookVendors.jsx'
 
+<<<<<<< Updated upstream
 import Contact from './components/Contact.jsx'
+=======
+// import VendorRoute from "./routes/VendorRoute";
+import AdminRoute from "./routes/AdminRoutes.jsx";
+import OrganizerRoute from "./routes/OrganizerRoute";
+import './App.css';
+ import Contact from './pages/Contact.jsx'
+>>>>>>> Stashed changes
 
 // ✅ Expert Pages (formerly vendor)
 import ExpertDashboard from "./pages/expert/ExpertDashboard.jsx"

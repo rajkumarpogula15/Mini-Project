@@ -10,7 +10,7 @@ import Stats from './components/Stats';
 import FAQ from './components/FAQ';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
-import Contact from './components/Contact';
+import Contact from './pages/Contact';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);

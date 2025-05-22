@@ -1,7 +1,14 @@
+<<<<<<< Updated upstream
 // import './CTA.css';
 import './Contact';
+=======
+import './CTA.css';
+import { useNavigate } from 'react-router-dom';
 
-function CTA() {
+const CTA = () => {
+  const navigate = useNavigate();
+>>>>>>> Stashed changes
+
   return (
     <section className="cta">
       <div className="cta-text">
@@ -13,7 +20,7 @@ function CTA() {
 
           <button
             className="relative cursor-pointer py-4 px-8 text-center font-barlow inline-flex justify-center text-base uppercase text-[#101050] rounded-lg border-solid transition-transform duration-300 ease-in-out group outline-offset-4 focus:outline-2 focus:outline-[#101050] focus:outline-offset-4 overflow-hidden bg-amber-100"
-            onClick={() => window.location.href = '/components/Contact'}
+            onClick={() => navigate('/contact')}
           >
             <span className="relative z-20">Contact us</span>
 
@@ -36,6 +43,6 @@ function CTA() {
       </div>
     </section>
   );
-}
+};
 
 export default CTA;
