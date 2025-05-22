@@ -10,6 +10,7 @@ import expertRoutes from './routes/expertRoutes.js'; // vendors are experts now
 import bookingRoutes from './routes/bookingRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import attendeeRoutes from "./routes/attendeeRoutes.js";
+import contactRoutes from './routes/contactRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -28,6 +29,7 @@ app.use('/api/experts', expertRoutes);     // Experts services (was /vendors)
 app.use('/api/bookings', bookingRoutes);   // Bookings for experts
 app.use('/api/admin', adminRoutes);        // Admin operations
 app.use("/api/attendee", attendeeRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Health check
 app.get('/', (req, res) => {

@@ -12,6 +12,7 @@ import MyEvents from './pages/MyEvents.jsx'
 import BookingConfirmation from './pages/BookingConfirmation.jsx'
 
 import AdminDashboard from './pages/AdminDashboard'
+import AdminMessages from './pages/admin/Messages.jsx'
 import ManageVendors from './pages/admin/ManageVendors'
 import ManageUsers from './pages/admin/ManageUsers'
 import ManageBookings from './pages/admin/ManageBookings'
@@ -64,6 +65,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/admin/vendors" element={<AdminRoute><ManageVendors /></AdminRoute>} />
         <Route path="/admin/users" element={<AdminRoute><ManageUsers /></AdminRoute>} />
         <Route path="/admin/bookings" element={<AdminRoute><ManageBookings /></AdminRoute>} />
+        <Route path="/admin/messages" element={<AdminRoute><AdminMessages/></AdminRoute>} />
 
         {/* Organizer Routes */}
         <Route path="/organizer/events" element={<OrganizerRoute><ManageEvents /></OrganizerRoute>} />
