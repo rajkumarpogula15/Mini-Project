@@ -1,6 +1,6 @@
 // import './CTA.css';
 // import './Contact';
-// import './CTA.css';
+import './CTA.css';
 import { useNavigate } from 'react-router-dom';
 
 const CTA = () => {

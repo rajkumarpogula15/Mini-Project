@@ -119,9 +119,9 @@
   
   .cta-img {
     width: 50%;
-    max-width: 200px;
-    height:min-content;
+    max-width: 400px;
+    height:auto;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin-right: 3.5rem;
+    margin-right: 4.5rem;
   }
