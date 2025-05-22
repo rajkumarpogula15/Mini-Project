@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import ExpertDashboard from "./expert/ExpertDashboard"; // ✅ import
 import OrganizerDashboard from "./OrganizerDashboard"; // 🛠 create this next
 import AdminDashboard from "./AdminDashboard";
+import AttendeeDashboard from "./attendee/Dashboard";
+
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -26,11 +28,7 @@ function Dashboard() {
       {role === 'organizer' && <OrganizerDashboard />}
       {role === 'expert' && <ExpertDashboard />}
       {role === 'admin' && <AdminDashboard />}
-      {role === 'attendee' && (
-        <div className="text-center text-gray-700 text-xl">
-          Coming soon: Attendee Dashboard 🎉
-        </div>
-      )}
+      {role === 'attendee' && <AttendeeDashboard />}
     </div>
   );
 }

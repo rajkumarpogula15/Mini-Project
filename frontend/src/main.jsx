@@ -29,6 +29,12 @@ import ExpertEarnings from "./pages/expert/ExpertEarnings.jsx"
 import ExpertReviews from "./pages/expert/ExpertReviews.jsx"
 import ExpertProfile from "./pages/expert/ExpertProfile.jsx"
 
+
+// attende imports
+import AttendeeDashboard from './pages/attendee/Dashboard.jsx'
+import AttendeeMyEvents from './pages/attendee/MyEvents.jsx'
+import ExploreEvents from './pages/attendee/EventDetail.jsx'
+
 // ✅ Route Protection
 import ExpertRoute from "./routes/ExpertRoute"
 import AdminRoute from "./routes/AdminRoutes.jsx"
@@ -65,6 +71,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/expert/earnings" element={<ExpertRoute><ExpertEarnings /></ExpertRoute>} />
         <Route path="/expert/reviews" element={<ExpertRoute><ExpertReviews /></ExpertRoute>} />
         <Route path="/expert/profile" element={<ExpertRoute><ExpertProfile /></ExpertRoute>} />
+
+        {/* {attende routes} */}
+        <Route path="/attendee/dashboard" element={<AttendeeDashboard />} />
+        <Route path="/attendee/myevents" element={<AttendeeMyEvents />} />
+        <Route path="/attendee/events" element={<ExploreEvents />} />
+        
+
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

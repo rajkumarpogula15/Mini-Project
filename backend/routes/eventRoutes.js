@@ -1,48 +1,39 @@
 import express from 'express';
 import { protect } from '../middlewares/authMiddleware.js';
-import { createEvent, getMyEvents, deleteEvent, updateEvent } from '../controllers/eventController.js';
+import Event from '../models/Event.js';  // You need to import Event here
 
 const router = express.Router();
 
-router.post('/', protect, createEvent);
-router.get('/myevents', protect, getMyEvents);
-router.delete('/:id', protect, deleteEvent);
-router.put('/:id', protect, updateEvent);
+// Create new event
+router.post('/', protect, async (req, res) => {
+  try {
+    const { title, description, date, location } = req.body;
 
-// Get all events created by the organizer
-router.get('/myevents', protect, async (req, res) => {
-    try {
-      const events = await Event.find({ createdBy: req.user._id }).sort({ date: -1 });
-      res.json(events);
-    } catch (err) {
-      res.status(500).json({ message: err.message });
-    }
-  });
+    const event = await Event.create({
+      title,
+      description,
+      date,
+      location,
+      createdBy: req.user._id,
+    });
 
-  router.post('/', protect, async (req, res) => {
-    try {
-      const { title, description, date, location } = req.body;
-  
-      const event = await Event.create({
-        title,
-        description,
-        date,
-        location,
-        createdBy: req.user._id
-      });
-  
-      res.status(201).json(event);
-    } catch (err) {
-      res.status(500).json({ message: err.message });
-    }
-  });
-  
-  router.get('/myevents', protect, async (req, res) => {
-    const events = await Event.find({ createdBy: req.user._id });
+    res.status(201).json(event);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Get all events (no auth, public)
+router.get('/all', async (req, res) => {
+  try {
+    const events = await Event.find({}).sort({ date: -1 });
     res.json(events);
-  });
-  
-  // GET /api/events/myevents
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Get events created by the logged-in organizer
 router.get('/myevents', protect, async (req, res) => {
   try {
     const events = await Event.find({ createdBy: req.user._id }).sort({ createdAt: -1 });
@@ -52,5 +43,26 @@ router.get('/myevents', protect, async (req, res) => {
   }
 });
 
+// Update event by id
+router.put('/:id', protect, async (req, res) => {
+  try {
+    const event = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!event) return res.status(404).json({ message: "Event not found" });
+    res.json(event);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Delete event by id
+router.delete('/:id', protect, async (req, res) => {
+  try {
+    const event = await Event.findByIdAndDelete(req.params.id);
+    if (!event) return res.status(404).json({ message: "Event not found" });
+    res.json({ message: "Event deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 export default router;
