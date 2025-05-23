@@ -9,6 +9,12 @@ router.post('/', protect, async (req, res) => {
   try {
     const { title, description, date, location } = req.body;
 
+    if (!title || !date || !location) {
+      return res.status(400).json({ message: "Title, date, and location are required." });
+    }
+
+    // console.log("Creating event for user:", req.user);
+
     const event = await Event.create({
       title,
       description,
@@ -19,10 +25,10 @@ router.post('/', protect, async (req, res) => {
 
     res.status(201).json(event);
   } catch (err) {
+    console.error("Error creating event:", err);
     res.status(500).json({ message: err.message });
   }
 });
-
 // Get all events (no auth, public)
 router.get('/all', async (req, res) => {
   try {

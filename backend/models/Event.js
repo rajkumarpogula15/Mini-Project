@@ -6,11 +6,7 @@ const eventSchema = new mongoose.Schema({
   date: { type: Date, required: true },
   location: { type: String, required: true },
   budget: { type: Number },
-  organizer: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  }
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // ✅ This was organizer before
 }, {
   timestamps: true
 });
