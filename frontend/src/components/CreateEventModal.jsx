@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-function CreateEventModal({ isOpen, onClose, onEventCreated }) {
+function CreateEventModal({ isOpen, onClose, onEventAdded }) {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -21,8 +21,8 @@ function CreateEventModal({ isOpen, onClose, onEventCreated }) {
       await axios.post("http://localhost:5000/api/events", formData, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      onEventCreated(); // refresh events in parent
-      onClose();        // close modal
+      onEventAdded(); // <-- call correct prop here to refresh events
+      onClose();      // close modal
     } catch (err) {
       console.error("Event creation failed:", err.message);
     }

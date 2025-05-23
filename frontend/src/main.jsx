@@ -17,8 +17,8 @@ import ManageVendors from './pages/admin/ManageVendors'
 import ManageUsers from './pages/admin/ManageUsers'
 import ManageBookings from './pages/admin/ManageBookings'
 
-import ManageEvents from './pages/organizer/ManageEvents'
-import BookVendors from './pages/organizer/BookVendors.jsx'
+import ManageEvents from './pages/organizer/ManageEvents.jsx'
+import BookVendors from './pages/organizer/BookExperts.jsx'
 
 // import Contact from './components/Contact.jsx'
 // import VendorRoute from "./routes/VendorRoute";
@@ -45,6 +45,10 @@ import ExploreEvents from './pages/attendee/EventDetail.jsx'
 import ExpertRoute from "./routes/ExpertRoute"
 // import AdminRoute from "./routes/AdminRoutes.jsx"
 import OrganizerRoute from "./routes/OrganizerRoute"
+import OrganizerProfile from "./pages/organizer/Profile"; // adjust path as per your project structure
+import UploadMedia from './pages/organizer/UploadMedia.jsx';
+import ShareEvent from './pages/organizer/ShareEvent.jsx'
+import ExpertRecommendations from './pages/organizer/ExpertRecommendations.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -63,14 +67,19 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         {/* Admin Routes */}
         <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
         <Route path="/admin/vendors" element={<AdminRoute><ManageVendors /></AdminRoute>} />
+        
         <Route path="/admin/users" element={<AdminRoute><ManageUsers /></AdminRoute>} />
         <Route path="/admin/bookings" element={<AdminRoute><ManageBookings /></AdminRoute>} />
         <Route path="/admin/messages" element={<AdminRoute><AdminMessages/></AdminRoute>} />
 
         {/* Organizer Routes */}
         <Route path="/organizer/events" element={<OrganizerRoute><ManageEvents /></OrganizerRoute>} />
-        <Route path="/organizer/vendors/book" element={<OrganizerRoute><BookVendors /></OrganizerRoute>} />
-
+        <Route path="/organizer/experts/book" element={<OrganizerRoute><BookVendors /></OrganizerRoute>} />
+        <Route path="/organizer/profile" element={<OrganizerProfile />} />
+        <Route path="/organizer/media" element={<OrganizerRoute><UploadMedia /></OrganizerRoute>} />
+        <Route path="/organizer/share" element={<OrganizerRoute><ShareEvent/></OrganizerRoute>} />
+         <Route path="/organizer/experts/recommended" element={<OrganizerRoute><ExpertRecommendations/></OrganizerRoute>} /> 
+        
         {/* Expert Routes */}
         <Route path="/expert/dashboard" element={<ExpertRoute><ExpertDashboard /></ExpertRoute>} />
         <Route path="/expert/services" element={<ExpertRoute><ManageServices /></ExpertRoute>} />

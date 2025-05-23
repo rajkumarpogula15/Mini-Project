@@ -9,11 +9,11 @@ function OrganizerDashboard() {
 
   const [bookings, setBookings] = useState([]);
   const [eventCount, setEventCount] = useState(0);
-  const [vendorsBookedCount, setVendorsBookedCount] = useState(0);
+  const [expertsBookedCount, setexpertsBookedCount] = useState(0);
   const [pendingBookings, setPendingBookings] = useState(0);
   const [reviewCount, setReviewCount] = useState(0);
   const [profileCompletion, setProfileCompletion] = useState(0);
-  const [topVendors, setTopVendors] = useState([]);
+  const [topexperts, setTopexperts] = useState([]);
 
   const handleCancel = async (bookingId) => {
     const confirm = window.confirm("Are you sure you want to cancel this booking?");
@@ -46,15 +46,15 @@ function OrganizerDashboard() {
       const bookingsRes = await axios.get("http://localhost:5000/api/bookings/organizer", { headers });
       setBookings(bookingsRes.data);
       setPendingBookings(bookingsRes.data.filter(b => b.status === "pending").length);
-      setVendorsBookedCount(bookingsRes.data.length);
+      setexpertsBookedCount(bookingsRes.data.length);
 
       // Events
       const eventsRes = await axios.get("http://localhost:5000/api/events/myevents", { headers });
       setEventCount(eventsRes.data.length);
 
-      // Top Vendors
-      const vendorRes = await axios.get("http://localhost:5000/api/bookings/top-vendors", { headers });
-      setTopVendors(vendorRes.data);
+      // Top experts
+      const vendorRes = await axios.get("http://localhost:5000/api/bookings/top-experts", { headers });
+      setTopexperts(vendorRes.data);
 
       // Profile completion
       const profileRes = await axios.get("http://localhost:5000/api/users/profile", { headers });
@@ -74,12 +74,12 @@ function OrganizerDashboard() {
 
   return (
     <OrganizerSidebarLayout>
-      <h1 className="text-3xl font-bold mb-6 text-center">Organizer Dashboard 👑</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Event Organizer Dashboard 👑</h1>
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
         <StatCard label="🎉 Events" value={eventCount} />
-        <StatCard label="📦 Vendors Booked" value={vendorsBookedCount} />
+        <StatCard label="📦 experts Booked" value={expertsBookedCount} />
         <StatCard label="⏳ Pending" value={pendingBookings} />
         <StatCard label="⭐ Reviews" value={reviewCount} />
       </div>
@@ -93,10 +93,10 @@ function OrganizerDashboard() {
           📤 Create New Event
         </button>
         <button
-          onClick={() => navigate("/organizer/vendors/book")}
+          onClick={() => navigate("/organizer/experts/book")}
           className="bg-green-600 text-white px-4 py-2 rounded"
         >
-          🔎 Find Vendors
+          🔎 Find experts
         </button>
         <button
           onClick={() => navigate("/organizer/share")}
@@ -152,11 +152,11 @@ function OrganizerDashboard() {
         <p className="text-sm text-gray-500 mt-1">{profileCompletion}% complete – Add more info to improve trust.</p>
       </div>
 
-      {/* Top Booked Vendors */}
+      {/* Top Booked experts */}
       <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">🏆 Top Booked Vendors</h2>
+        <h2 className="text-xl font-semibold mb-2">🏆 Top Booked experts</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {topVendors.map((v) => (
+          {topexperts.map((v) => (
             <div key={v._id} className="bg-white p-4 rounded shadow">
               <h3 className="font-bold text-blue-600">{v.vendorDetails?.name || "Vendor"}</h3>
               <p className="text-sm text-gray-500">{v.vendorDetails?.category || "Service"}</p>

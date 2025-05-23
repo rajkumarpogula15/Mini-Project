@@ -3,11 +3,12 @@ import axios from "axios";
 import OrganizerSidebarLayout from "../../components/OrganizerSidebarLayout";
 import { useNavigate } from "react-router-dom";
 import CreateEventModal from "../../components/CreateEventModal";
-import BookVendorsModal from "../../components/BookVendorsModal"; // New modal component
+import BookVendorsModal from "../../components/BookVendorsModal";
+import EventCard from "../../components/EventCard";
 
 function ManageEvents() {
   const [events, setEvents] = useState([]);
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState(null);
 
@@ -19,20 +20,20 @@ function ManageEvents() {
       });
       setEvents(res.data);
     } catch (err) {
-      console.error("Failed to fetch events:", err.message);
+      console.error("Error fetching events:", err);
     }
   };
 
-  const handleDelete = async (id) => {
+  const deleteEvent = async (eventId) => {
     if (!window.confirm("Are you sure you want to delete this event?")) return;
     try {
       const token = localStorage.getItem("userToken");
-      await axios.delete(`http://localhost:5000/api/events/${id}`, {
+      await axios.delete(`http://localhost:5000/api/events/${eventId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchEvents();
     } catch (err) {
-      console.error("Delete failed:", err.message);
+      console.error("Error deleting event:", err);
     }
   };
 
@@ -41,55 +42,54 @@ function ManageEvents() {
     setIsBookingModalOpen(true);
   };
 
+  const editEvent = (event) => {
+    alert("Edit coming soon! Event ID: " + event._id);
+  };
+
   useEffect(() => {
     fetchEvents();
   }, []);
 
   return (
     <OrganizerSidebarLayout>
-      <div>
-        <h1 className="text-2xl font-bold mb-4">🗓️ Manage Your Events</h1>
+      <h1 className="text-2xl font-bold mb-4">🗓️ Manage Your Events</h1>
 
+      <div className="mb-6">
         <button
-          onClick={() => setIsCreateModalOpen(true)}
-          className="mb-6 bg-blue-600 text-white px-4 py-2 rounded"
+          onClick={() => setShowModal(true)}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
         >
-          ➕ Create New Event
+          ➕ Add Event
         </button>
-
-        <CreateEventModal
-          isOpen={isCreateModalOpen}
-          onClose={() => setIsCreateModalOpen(false)}
-          onEventCreated={fetchEvents}
-        />
-
-        <BookVendorsModal
-          isOpen={isBookingModalOpen}
-          onClose={() => setIsBookingModalOpen(false)}
-          eventId={selectedEventId}
-        />
-
-        {events.length === 0 ? (
-          <p className="text-gray-500">No events found. Create one to get started!</p>
-        ) : (
-          <div className="space-y-4">
-            {events.map((event) => (
-              <div key={event._id} className="bg-white shadow p-4 rounded">
-                <h3 className="text-xl font-semibold text-blue-600">{event.title}</h3>
-                <p><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</p>
-                <p><strong>Location:</strong> {event.location}</p>
-                <p><strong>Description:</strong> {event.description}</p>
-
-                <div className="mt-2 flex flex-wrap gap-3">
-                  <button className="text-blue-500" onClick={() => alert("Edit coming soon!")}>✏️ Edit</button>
-                  <button className="text-red-500" onClick={() => handleDelete(event._id)}>🗑️ Delete</button>
-                  <button className="text-green-600" onClick={() => openBookingModal(event._id)}>📦 Book Vendors</button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
+
+      <CreateEventModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onEventAdded={fetchEvents}
+      />
+
+      <BookVendorsModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+        eventId={selectedEventId}
+      />
+
+      {events.length === 0 ? (
+        <p className="text-gray-500">No events added yet.</p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {events.map((event) => (
+            <EventCard
+              key={event._id}
+              event={event}
+              onDelete={deleteEvent}
+              onEdit={editEvent}
+              onBookVendors={openBookingModal}
+            />
+          ))}
+        </div>
+      )}
     </OrganizerSidebarLayout>
   );
 }

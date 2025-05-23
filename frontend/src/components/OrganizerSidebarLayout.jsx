@@ -18,8 +18,8 @@ function OrganizerSidebarLayout({ children }) {
           <nav className="space-y-3 text-gray-700 font-medium">
             <Link to="/dashboard" className="block hover:text-indigo-600">🏠 Dashboard</Link>
             <Link to="/organizer/events" className="block hover:text-indigo-600">🗓️ Manage Events</Link>
-            <Link to="/organizer/vendors/recommended" className="block hover:text-indigo-600">🤝 Vendor Recommendations</Link>
-            <Link to="/organizer/vendors/book" className="block hover:text-indigo-600">📦 Book Vendors</Link>
+            <Link to="/organizer/experts/recommended" className="block hover:text-indigo-600">🤝 expert Recommendations</Link>
+            <Link to="/organizer/experts/book" className="block hover:text-indigo-600">📦 Book experts</Link>
             <Link to="/organizer/share" className="block hover:text-indigo-600">🔗 Share Event Page</Link>
             <Link to="/organizer/media" className="block hover:text-indigo-600">📤 Upload Media</Link>
             <Link to="/organizer/profile" className="block hover:text-indigo-600">👤 Profile</Link>
