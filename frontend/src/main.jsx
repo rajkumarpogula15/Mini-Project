@@ -1,59 +1,63 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import App from './App.jsx'
-import './index.css'
-
-import Register from './pages/Register.jsx'
-import Login from './pages/Login.jsx'
-import Dashboard from './pages/Dashboard.jsx'
-import CreateEvent from './pages/CreateEvent.jsx'
-import MyEvents from './pages/MyEvents.jsx'
-import BookingConfirmation from './pages/BookingConfirmation.jsx'
-
-import AdminDashboard from './pages/AdminDashboard'
-import AdminMessages from './pages/admin/Messages.jsx'
-import ManageVendors from './pages/admin/ManageVendors'
-import ManageUsers from './pages/admin/ManageUsers'
-import ManageBookings from './pages/admin/ManageBookings'
-
-import ManageEvents from './pages/organizer/ManageEvents.jsx'
-import BookVendors from './pages/organizer/BookExperts.jsx'
-
-// import Contact from './components/Contact.jsx'
-// import VendorRoute from "./routes/VendorRoute";
-import AdminRoute from "./routes/AdminRoutes.jsx";
-// import OrganizerRoute from "./routes/OrganizerRoute";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import App from './App.jsx';
+import './index.css';
 import './App.css';
- import Contact from './pages/Contact.jsx'
 
-// ✅ Expert Pages (formerly vendor)
-import ExpertDashboard from "./pages/expert/ExpertDashboard.jsx"
-import ManageServices from "./pages/expert/ManageServices.jsx"
-import ExpertBookings from "./pages/expert/ExpertBookings.jsx"
-import ExpertEarnings from "./pages/expert/ExpertEarnings.jsx"
-import ExpertReviews from "./pages/expert/ExpertReviews.jsx"
-import ExpertProfile from "./pages/expert/ExpertProfile.jsx"
+// Public Pages
+import Register from './pages/Register.jsx';
+import Login from './pages/Login.jsx';
+import Dashboard from './pages/Dashboard.jsx';
+import CreateEvent from './pages/CreateEvent.jsx';
+import MyEvents from './pages/MyEvents.jsx';
+import BookingConfirmation from './pages/BookingConfirmation.jsx';
+import Contact from './pages/Contact.jsx';
 
+// Admin Pages
+import AdminDashboard from './pages/AdminDashboard';
+import AdminManageEvents from './pages/admin/ManageEvents.jsx';
+import AdminMessages from './pages/admin/Messages.jsx';
+import ManageExperts from './pages/admin/ManageExperts.jsx';
+import ManageUsers from './pages/admin/ManageUsers';
+import ManageBookings from './pages/admin/ManageBookings';
 
-// attende imports
-import AttendeeDashboard from './pages/attendee/Dashboard.jsx'
-import AttendeeMyEvents from './pages/attendee/MyEvents.jsx'
-import ExploreEvents from './pages/attendee/EventDetail.jsx'
-
-// ✅ Route Protection
-import ExpertRoute from "./routes/ExpertRoute"
-// import AdminRoute from "./routes/AdminRoutes.jsx"
-import OrganizerRoute from "./routes/OrganizerRoute"
-import OrganizerProfile from "./pages/organizer/Profile"; // adjust path as per your project structure
+// Organizer Pages
+import ManageEvents from './pages/organizer/ManageEvents.jsx';
+import BookVendors from './pages/organizer/BookExperts.jsx';
+import OrganizerProfile from './pages/organizer/Profile';
 import UploadMedia from './pages/organizer/UploadMedia.jsx';
-import ShareEvent from './pages/organizer/ShareEvent.jsx'
-import ExpertRecommendations from './pages/organizer/ExpertRecommendations.jsx'
+import ShareEvent from './pages/organizer/ShareEvent.jsx';
+import ExpertRecommendations from './pages/organizer/ExpertRecommendations.jsx';
+
+// Expert Pages
+import ExpertDashboard from './pages/expert/ExpertDashboard.jsx';
+import ManageServices from './pages/expert/ManageServices.jsx';
+import ExpertBookings from './pages/expert/ExpertBookings.jsx';
+import ExpertEarnings from './pages/expert/ExpertEarnings.jsx';
+import ExpertReviews from './pages/expert/ExpertReviews.jsx';
+import ExpertProfile from './pages/expert/ExpertProfile.jsx';
+
+// Attendee Pages
+import AttendeeDashboard from './pages/attendee/Dashboard.jsx';
+import AttendeeMyEvents from './pages/attendee/MyEvents.jsx';
+import ExploreEvents from './pages/attendee/EventDetail.jsx';
+
+// Route Guards
+import AdminRoute from './routes/AdminRoutes.jsx';
+import ExpertRoute from './routes/ExpertRoute.jsx';
+import OrganizerRoute from './routes/OrganizerRoute.jsx';
+
+// Optional 404 Page
+const NotFound = () => (
+  <div className="text-center text-2xl p-10">404 - Page Not Found</div>
+);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
+
         {/* Public Routes */}
         <Route path="/" element={<App />} />
         <Route path="/register" element={<Register />} />
@@ -66,20 +70,20 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
         {/* Admin Routes */}
         <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
-        <Route path="/admin/vendors" element={<AdminRoute><ManageVendors /></AdminRoute>} />
-        
+        <Route path="/admin/experts" element={<AdminRoute><ManageExperts /></AdminRoute>} />
+        <Route path="/admin/events" element={<AdminRoute><AdminManageEvents /></AdminRoute>} />
         <Route path="/admin/users" element={<AdminRoute><ManageUsers /></AdminRoute>} />
         <Route path="/admin/bookings" element={<AdminRoute><ManageBookings /></AdminRoute>} />
-        <Route path="/admin/messages" element={<AdminRoute><AdminMessages/></AdminRoute>} />
+        <Route path="/admin/messages" element={<AdminRoute><AdminMessages /></AdminRoute>} />
 
         {/* Organizer Routes */}
         <Route path="/organizer/events" element={<OrganizerRoute><ManageEvents /></OrganizerRoute>} />
         <Route path="/organizer/experts/book" element={<OrganizerRoute><BookVendors /></OrganizerRoute>} />
-        <Route path="/organizer/profile" element={<OrganizerProfile />} />
+        <Route path="/organizer/profile" element={<OrganizerRoute><OrganizerProfile /></OrganizerRoute>} />
         <Route path="/organizer/media" element={<OrganizerRoute><UploadMedia /></OrganizerRoute>} />
-        <Route path="/organizer/share" element={<OrganizerRoute><ShareEvent/></OrganizerRoute>} />
-         <Route path="/organizer/experts/recommended" element={<OrganizerRoute><ExpertRecommendations/></OrganizerRoute>} /> 
-        
+        <Route path="/organizer/share" element={<OrganizerRoute><ShareEvent /></OrganizerRoute>} />
+        <Route path="/organizer/experts/recommended" element={<OrganizerRoute><ExpertRecommendations /></OrganizerRoute>} />
+
         {/* Expert Routes */}
         <Route path="/expert/dashboard" element={<ExpertRoute><ExpertDashboard /></ExpertRoute>} />
         <Route path="/expert/services" element={<ExpertRoute><ManageServices /></ExpertRoute>} />
@@ -88,13 +92,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/expert/reviews" element={<ExpertRoute><ExpertReviews /></ExpertRoute>} />
         <Route path="/expert/profile" element={<ExpertRoute><ExpertProfile /></ExpertRoute>} />
 
-        {/* {attende routes} */}
+        {/* Attendee Routes */}
         <Route path="/attendee/dashboard" element={<AttendeeDashboard />} />
         <Route path="/attendee/myevents" element={<AttendeeMyEvents />} />
         <Route path="/attendee/events" element={<ExploreEvents />} />
-        
+
+        {/* Fallback Route */}
+        <Route path="*" element={<NotFound />} />
 
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
-)
+);

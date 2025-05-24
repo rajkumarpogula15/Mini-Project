@@ -19,12 +19,11 @@ function SidebarLayout({ children }) {
             <Link to="/admin" className="block hover:text-blue-600">🏠 Dashboard</Link>
             <Link to="/admin/users" className="block hover:text-blue-600">👥 Manage Users</Link>
             <Link to="/admin/events" className="block hover:text-blue-600">🎉 Manage Events</Link>
-            <Link to="/admin/vendors" className="block hover:text-blue-600">🛍️ Vendor Services</Link>
+            <Link to="/admin/experts" className="block hover:text-blue-600">🛍️ Manage Experts</Link>
             <Link to="/admin/bookings" className="block hover:text-blue-600">📅 All Bookings</Link>
-            <Link to="/admin/messages" className="block hover:text-blue-600">Messages</Link>
+            <Link to="/admin/messages" className="block hover:text-blue-600">📩 Support Messages</Link>
             <Link to="/admin/reviews" className="block hover:text-blue-600">⭐ Reviews</Link>
             <Link to="/admin/payments" className="block hover:text-blue-600">💳 Payments</Link>
-            <Link to="/admin/support" className="block hover:text-blue-600">📩 Support</Link>
             <Link to="/admin/settings" className="block hover:text-blue-600">⚙️ Admin Settings</Link>
           </nav>
         </div>

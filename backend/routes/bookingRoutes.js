@@ -4,13 +4,15 @@ import Booking from '../models/Booking.js';
 
 const router = express.Router();
 
+// @route   POST /api/bookings
+// @desc    Create a new booking
 router.post('/', protect, async (req, res) => {
   try {
-    const { vendorId, eventDate, message } = req.body;
+    const { expertId, eventDate, message } = req.body;
 
     const booking = new Booking({
       organizer: req.user._id,
-      vendor: vendorId,
+      expert: expertId,
       eventDate,
       message,
     });
@@ -23,10 +25,11 @@ router.post('/', protect, async (req, res) => {
   }
 });
 
+// @route   PUT /api/bookings/:id
+// @desc    Update booking status
 router.put('/:id', protect, async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id);
-
     if (!booking) return res.status(404).json({ message: "Booking not found" });
 
     booking.status = req.body.status;
@@ -38,10 +41,12 @@ router.put('/:id', protect, async (req, res) => {
   }
 });
 
+// @route   GET /api/bookings/expert
+// @desc    Get bookings for logged-in expert
 router.get('/expert', protect, async (req, res) => {
   try {
-    const bookings = await Booking.find({ vendor: req.user._id })
-      .populate('organizer', 'name email phone') // Add this line
+    const bookings = await Booking.find({ expert: req.user._id })
+      .populate('organizer', 'name email phone')
       .sort({ createdAt: -1 });
 
     res.json(bookings);
@@ -50,22 +55,12 @@ router.get('/expert', protect, async (req, res) => {
   }
 });
 
-// Get bookings for logged-in organizer
+// @route   GET /api/bookings/organizer
+// @desc    Get bookings for logged-in organizer
 router.get('/organizer', protect, async (req, res) => {
   try {
-    const bookings = await Booking.find({ organizer: req.user._id }).sort({ createdAt: -1 });
-    res.json(bookings);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-// ✅ Admin-only: Get all bookings
-router.get('/admin/all', protect, async (req, res) => {
-  try {
-    const bookings = await Booking.find()
-      .populate('vendorId', 'name category location')
-      .populate('organizerId', 'name email phone')
+    const bookings = await Booking.find({ organizer: req.user._id })
+      .populate('expert', 'name category location')
       .sort({ createdAt: -1 });
 
     res.json(bookings);
@@ -74,36 +69,57 @@ router.get('/admin/all', protect, async (req, res) => {
   }
 });
 
-// GET /api/bookings/top-vendors
-router.get('/top-vendors', protect, async (req, res) => {
+// @route   GET /api/bookings/admin/all
+// @desc    Admin-only: Get all bookings
+router.get('/admin/all', protect, async (req, res) => {
   try {
-    const topVendors = await Booking.aggregate([
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Access denied' });
+    }
+
+    const bookings = await Booking.find()
+      .populate('expert', 'name category location')
+      .populate('organizer', 'name email phone')
+      .sort({ createdAt: -1 });
+
+    res.json(bookings);
+  } catch (err) {
+    console.error("Error in /admin/all:", err.message);
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// @route   GET /api/bookings/top-experts
+// @desc    Get top 3 experts for logged-in organizer
+router.get('/top-experts', protect, async (req, res) => {
+  try {
+    const topExperts = await Booking.aggregate([
       { $match: { organizer: req.user._id } },
-      { $group: { _id: "$vendor", count: { $sum: 1 } } },
+      { $group: { _id: "$expert", count: { $sum: 1 } } },
       { $sort: { count: -1 } },
       { $limit: 3 },
       {
         $lookup: {
-          from: "vendors",
+          from: "vendors", // change this if your expert collection name differs
           localField: "_id",
           foreignField: "_id",
-          as: "vendorDetails"
+          as: "expertDetails"
         }
       },
-      { $unwind: "$vendorDetails" }
+      { $unwind: "$expertDetails" }
     ]);
 
-    res.json(topVendors);
+    res.json(topExperts);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// PUT /api/bookings/cancel/:id - Organizer cancels booking
+// @route   PUT /api/bookings/cancel/:id
+// @desc    Organizer cancels a booking
 router.put('/cancel/:id', protect, async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id);
-
     if (!booking) return res.status(404).json({ message: "Booking not found" });
 
     if (booking.organizer.toString() !== req.user._id.toString()) {
@@ -116,6 +132,26 @@ router.put('/cancel/:id', protect, async (req, res) => {
 
     res.json({ message: 'Booking cancelled successfully', booking });
   } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// @route   DELETE /api/bookings/:id
+// @desc    Admin deletes a booking
+router.delete('/:id', protect, async (req, res) => {
+  try {
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Access denied' });
+    }
+
+    const booking = await Booking.findByIdAndDelete(req.params.id);
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    res.json({ message: 'Booking deleted successfully' });
+  } catch (err) {
+    console.error("Error deleting booking:", err.message);
     res.status(500).json({ message: err.message });
   }
 });

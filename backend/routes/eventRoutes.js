@@ -39,6 +39,17 @@ router.get('/all', async (req, res) => {
   }
 });
 
+// Get all events (admin)
+router.get('/', protect, async (req, res) => {
+  try {
+    const events = await Event.find().sort({ createdAt: -1 });
+    res.json(events);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
 // Get events created by the logged-in organizer
 router.get('/myevents', protect, async (req, res) => {
   try {
