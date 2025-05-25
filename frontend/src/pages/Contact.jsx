@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Mail, Phone, Pin } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -8,7 +8,7 @@ const Contact = () => {
     email: '',
     phone: '',
     subject: '',
-    message: ''
+    message: '',
   });
 
   const [status, setStatus] = useState('');
@@ -16,7 +16,7 @@ const Contact = () => {
   const handleChange = (e) => {
     setFormData(prev => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -26,102 +26,89 @@ const Contact = () => {
 
     try {
       await axios.post('http://localhost:5000/api/contact', formData);
-      setStatus('Message sent successfully! ✅');
+      setStatus('✅ Message sent successfully!');
       setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
     } catch (err) {
       console.error(err.message);
-      setStatus('Failed to send message ❌');
+      setStatus('❌ Failed to send message. Please try again.');
     }
   };
 
   return (
-    <div className='w-screen h-full flex flex-col justify-center items-center'>
-      <div className='w-full h-40 flex justify-center items-center text-3xl text-purple-500 font-semibold'>
-        Contact Us
-      </div>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12">
+      <div className="max-w-xl w-full bg-white rounded-lg shadow-md p-6 md:p-8">
+        <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-6 text-center">
+          Contact Tech Event Management
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Full Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition text-sm"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Your Email Address"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition text-sm"
+          />
+          <input
+            type="tel"
+            name="phone"
+            placeholder="Phone Number (Optional)"
+            value={formData.phone}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition text-sm"
+          />
+          <input
+            type="text"
+            name="subject"
+            placeholder="Subject"
+            value={formData.subject}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition text-sm"
+          />
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            value={formData.message}
+            onChange={handleChange}
+            rows="4"
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition resize-none text-sm"
+          />
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-md transition duration-200 shadow-sm"
+          >
+            Send Message
+          </button>
+        </form>
 
-      <div className='w-[95%] h-[45rem] shadow-lg flex flex-col md:flex-row justify-center items-center'>
-        {/* Contact Info */}
-        <div className='h-[90%] w-full md:w-1/2 flex flex-col justify-center items-center gap-4'>
-          <div className='h-[31%] w-[70%] border rounded-md flex flex-col justify-center items-center text-lg font-semibold gap-4 shadow-md'>
-            <Mail className='h-8 w-8 text-purple-600' />
-            <h1>abc@gmail.com</h1>
+        {status && (
+          <p className="mt-4 text-center text-gray-700 font-medium text-sm">{status}</p>
+        )}
+
+        <div className="mt-8 space-y-3 text-gray-600 text-sm">
+          <div className="flex items-center space-x-2">
+            <Mail className="w-4 h-4 text-blue-600" />
+            <span>batch12@gmail.com</span>
           </div>
-          <div className='h-[31%] w-[70%] border rounded-md flex flex-col justify-center items-center text-lg font-semibold gap-4 shadow-md'>
-            <Phone className='h-8 w-8 text-purple-600' />
-            <h1>9876543210</h1>
+          <div className="flex items-center space-x-2">
+            <Phone className="w-4 h-4 text-blue-600" />
+            <span>9876543210</span>
           </div>
-          <div className='h-[50%] w-[70%] border rounded-md flex flex-col justify-center items-center text-lg font-semibold gap-4 shadow-md'>
-            <Pin className='h-8 w-8 text-purple-600' />
-            <h1 className='text-center'>1/11, asd, dfg<br />wert</h1>
-          </div>
-        </div>
-
-        {/* Contact Form */}
-        <div className='h-[95%] w-full md:w-1/2 flex flex-col justify-center items-center'>
-          <div className='h-full w-full flex flex-col justify-center items-center text-lg font-semibold'>
-            <h1 className='w-[80%] text-left my-6 font-bold text-purple-500'>Get in touch</h1>
-
-            <form
-              className='h-[80%] w-[80%] flex flex-col justify-center items-center gap-6'
-              onSubmit={handleSubmit}
-            >
-              <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className='w-full shadow-sm outline-none bg-[#f5f5f7] border-b-2 border-transparent p-4 focus:shadow-lg focus:border-purple-400 rounded-sm'
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className='w-full shadow-sm outline-none bg-[#f5f5f7] border-b-2 border-transparent p-4 focus:shadow-lg focus:border-purple-400 rounded-sm'
-              />
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Phone"
-                value={formData.phone}
-                onChange={handleChange}
-                className='w-full shadow-sm outline-none bg-[#f5f5f7] border-b-2 border-transparent p-4 focus:shadow-lg focus:border-purple-400 rounded-sm'
-              />
-              <input
-                type="text"
-                name="subject"
-                placeholder="Subject"
-                value={formData.subject}
-                onChange={handleChange}
-                required
-                className='w-full shadow-sm outline-none bg-[#f5f5f7] border-b-2 border-transparent p-4 focus:shadow-lg focus:border-purple-400 rounded-sm'
-              />
-              <textarea
-                name="message"
-                placeholder="Message"
-                value={formData.message}
-                onChange={handleChange}
-                rows="4"
-                required
-                className='w-full shadow-sm outline-none bg-[#f5f5f7] border-b-2 border-transparent p-4 focus:shadow-lg focus:border-purple-400 rounded-sm'
-              />
-
-              <button
-                type="submit"
-                className='w-1/2 bg-purple-600 text-white font-semibold py-3 px-6 rounded hover:bg-purple-700 transition duration-200'
-              >
-                Send
-              </button>
-
-              {status && (
-                <p className="text-sm mt-2 text-center text-gray-600">{status}</p>
-              )}
-            </form>
+          <div className="flex items-center space-x-2">
+            <MapPin className="w-4 h-4 text-blue-600" />
+            <span>jnthucej</span>
           </div>
         </div>
       </div>

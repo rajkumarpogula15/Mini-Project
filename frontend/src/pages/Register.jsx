@@ -7,7 +7,7 @@ function Register() {
     email: "",
     password: "",
     phone: "",
-    role: "organizer", // default role
+    role: "organizer",
   });
 
   const [error, setError] = useState("");
@@ -23,38 +23,41 @@ function Register() {
     setSuccess("");
 
     try {
-      const response = await axios.post("http://localhost:5000/api/users/register", formData);
-      console.log(response.data);
-      setSuccess("🎉 Registration successful! You can now login.");
+      const res = await axios.post("http://localhost:5000/api/users/register", formData);
+      setSuccess("✅ Registered successfully! Please log in.");
     } catch (err) {
-      console.error(err.response?.data?.message || err.message);
-      setError(err.response?.data?.message || "Something went wrong");
+      setError(err.response?.data?.message || "Registration failed. Try again.");
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-800 via-purple-700 to-pink-600">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-10 rounded-3xl shadow-xl w-full max-w-lg transition-all"
-      >
-        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Join TechEvents 🚀</h2>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
+      <div className="bg-white w-full max-w-md rounded-2xl shadow-lg p-8 sm:p-10 border border-gray-200">
+        <div className="mb-6 text-center">
+          <h1 className="text-2xl font-bold text-gray-800">Create Your Account</h1>
+          <p className="text-sm text-gray-500 mt-1">Join TechEvents today 🚀</p>
+        </div>
 
         {error && (
-          <p className="mb-4 text-red-500 text-sm bg-red-100 p-2 rounded">{error}</p>
-        )}
-        {success && (
-          <p className="mb-4 text-green-600 text-sm bg-green-100 p-2 rounded">{success}</p>
+          <div className="mb-4 text-sm text-red-600 bg-red-100 border border-red-200 px-4 py-2 rounded-lg">
+            {error}
+          </div>
         )}
 
-        <div className="space-y-4">
+        {success && (
+          <div className="mb-4 text-sm text-green-600 bg-green-100 border border-green-200 px-4 py-2 rounded-lg">
+            {success}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
             name="name"
             placeholder="Full Name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-800"
             required
           />
           <input
@@ -63,7 +66,7 @@ function Register() {
             placeholder="Email Address"
             value={formData.email}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-800"
             required
           />
           <input
@@ -72,7 +75,7 @@ function Register() {
             placeholder="Create Password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-800"
             required
           />
           <input
@@ -81,14 +84,14 @@ function Register() {
             placeholder="Phone Number"
             value={formData.phone}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-800"
             required
           />
           <select
             name="role"
             value={formData.role}
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-800"
           >
             <option value="organizer">Event Organizer</option>
             <option value="expert">Tech Expert / Speaker</option>
@@ -97,12 +100,19 @@ function Register() {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg font-semibold transition-transform transform hover:scale-105"
+            className="w-full bg-gray-900 text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition"
           >
-            Register Now
+            Register
           </button>
-        </div>
-      </form>
+        </form>
+
+        <p className="text-center text-sm text-gray-500 mt-6">
+          Already have an account?{" "}
+          <a href="/login" className="text-gray-900 font-medium hover:underline">
+            Login
+          </a>
+        </p>
+      </div>
     </div>
   );
 }

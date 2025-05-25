@@ -1,5 +1,5 @@
-// components/FeaturesSection.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const roles = [
   {
@@ -63,11 +63,9 @@ const FeaturesSection = () => {
                 <li key={i}>{point}</li>
               ))}
             </ul>
-            <button
-              className={`mt-6 bg-${color}-600 text-white text-sm px-5 py-2 rounded-full shadow hover:bg-${color}-700 transition duration-300`}
-            >
-              See Dashboard
-            </button>
+            <Link to="/login" className={`mt-6 inline-block bg-${color}-600 text-white text-sm px-5 py-2 rounded-full shadow hover:bg-${color}-700 transition duration-300`}>
+              Explore Features
+            </Link>
           </div>
         ))}
       </div>

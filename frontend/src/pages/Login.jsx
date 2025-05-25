@@ -1,10 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 
 function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -45,84 +47,80 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-900 to-purple-900 px-4 py-12">
-      <div className="w-full max-w-md bg-white shadow-2xl rounded-3xl p-10">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-extrabold text-gray-800">
-            Welcome Back
-          </h1>
-          <p className="text-gray-500 text-sm mt-1">
-            Login to manage your events
+    <div className="min-h-screen flex items-center justify-center bg-white px-4 py-12">
+      <div className="w-full max-w-md border border-gray-200 rounded-2xl p-10 shadow-lg space-y-8">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-gray-800">Sign in to your account</h1>
+          <p className="text-sm text-gray-500 mt-2">
+            Access your dashboard and manage events
           </p>
         </div>
 
         {error && (
-          <div className="bg-red-100 text-red-700 text-sm px-4 py-2 mb-4 rounded-md text-center">
+          <div className="bg-red-100 text-red-700 px-4 py-2 text-sm rounded-md text-center">
             {error}
           </div>
         )}
         {success && (
-          <div className="bg-green-100 text-green-700 text-sm px-4 py-2 mb-4 rounded-md text-center">
+          <div className="bg-green-100 text-green-700 px-4 py-2 text-sm rounded-md text-center">
             {success}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email
-            </label>
             <input
               type="email"
-              name="email"
               id="email"
-              placeholder="you@example.com"
+              name="email"
+              autoComplete="email"
               value={formData.email}
               onChange={handleChange}
               required
-              className="mt-1 w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="mt-2 w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+              placeholder="Enter your email"
             />
           </div>
 
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password
-            </label>
+          <div className="relative">
             <input
-              type="password"
-              name="password"
+              type={showPassword ? "text" : "password"}
               id="password"
-              placeholder="••••••••"
+              name="password"
+              autoComplete="current-password"
               value={formData.password}
               onChange={handleChange}
               required
-              className="mt-1 w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="mt-2 w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm pr-12"
+              placeholder="Enter your password"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              tabIndex={-1}
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-xl transition duration-300"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-3 rounded-xl transition duration-300"
           >
             Sign In
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <div className="text-center text-sm text-gray-500 mt-6">
           Don't have an account?{" "}
           <a
             href="/register"
-            className="text-indigo-600 hover:underline font-medium"
+            className="text-indigo-600 font-medium hover:underline"
           >
             Register here
           </a>
-        </p>
+        </div>
       </div>
     </div>
   );

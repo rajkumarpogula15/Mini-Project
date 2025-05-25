@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App.jsx';
 import './index.css';
-import './App.css';
+// import './App.css';
 
 // Public Pages
 import Register from './pages/Register.jsx';
@@ -13,6 +13,9 @@ import CreateEvent from './pages/CreateEvent.jsx';
 import MyEvents from './pages/MyEvents.jsx';
 import BookingConfirmation from './pages/BookingConfirmation.jsx';
 import Contact from './pages/Contact.jsx';
+import Terms from './components/Terms';
+import Privacy from './components/Privacy';
+import FAQ from './components/FAQ';
 
 // Admin Pages
 import AdminDashboard from './pages/AdminDashboard';
@@ -50,7 +53,19 @@ import OrganizerRoute from './routes/OrganizerRoute.jsx';
 
 // Optional 404 Page
 const NotFound = () => (
-  <div className="text-center text-2xl p-10">404 - Page Not Found</div>
+  <div className="min-h-screen flex items-center justify-center bg-white px-4">
+  <div className="text-center max-w-md">
+    <h1 className="text-6xl font-bold text-gray-800 mb-4">404</h1>
+    <p className="text-xl text-gray-600 mb-6">Oops! The page you're looking for doesn't exist.</p>
+    <a
+      href="/"
+      className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-xl text-sm font-semibold shadow hover:bg-indigo-700 transition duration-300"
+    >
+      Go Back Home
+    </a>
+  </div>
+</div>
+
 );
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -67,6 +82,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/my-events" element={<MyEvents />} />
         <Route path="/booking/:id" element={<BookingConfirmation />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/faq" element={<FAQ />} />
 
         {/* Admin Routes */}
         <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />

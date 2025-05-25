@@ -1,6 +1,5 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-import "./Hero.css"; // Your custom override styles
 
 const Hero = () => (
   <section className="hero">
