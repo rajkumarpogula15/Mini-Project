@@ -1,62 +1,48 @@
-import { FaInstagram, FaFacebook, FaLinkedin, FaEnvelope, FaPhoneAlt } from 'react-icons/fa';
+// components/Footer.jsx
+import React from 'react';
 
-function Footer() {
+const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-12">
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Contact Info */}
-        <div className="flex justify-between mb-8">
-          <div className="text-lg">
-            <h4 className="font-semibold">Contact Us</h4>
-            <p><FaPhoneAlt className="inline mr-2" />+1 (123) 456-7890</p>
-            <p><FaEnvelope className="inline mr-2" />contact@eventpro.com</p>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="font-semibold mb-2">Quick Links</h4>
-            <ul>
-              <li><a href="/about" className="hover:text-green-400">About Us</a></li>
-              <li><a href="/terms" className="hover:text-green-400">Terms of Service</a></li>
-              <li><a href="/privacy" className="hover:text-green-400">Privacy Policy</a></li>
-            </ul>
-          </div>
-
-          {/* Newsletter Signup */}
-          <div>
-            <h4 className="font-semibold mb-2">Subscribe to Our Newsletter</h4>
-            <input 
-              type="email" 
-              placeholder="Enter your email" 
-              className="p-2 rounded-md text-gray-300  focus:outline-none focus:ring-2 focus:ring-green-500 mb-2" 
-            />
-            <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md mt-2">
-              Subscribe
-            </button>
-          </div>
+    <footer className="bg-gray-900 text-gray-300 py-10 px-6">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+        {/* Left Section */}
+        <div className="text-center md:text-left">
+          <h3 className="text-2xl font-bold text-white mb-2">Tech Event Management</h3>
+          <p className="text-sm max-w-xs">
+            Empowering tech enthusiasts, organizers, and experts to connect and create unforgettable events.
+          </p>
         </div>
 
-        {/* Social Media Links */}
-<div className="flex justify-center items-center gap-6 mb-8 text-xl">
-  <a href="https://instagram.com" className="hover:text-green-400">
-    <FaInstagram />
-  </a>
-  <a href="https://facebook.com" className="hover:text-green-400">
-    <FaFacebook />
-  </a>
-  <a href="https://linkedin.com" className="hover:text-green-400">
-    <FaLinkedin />
-  </a>
-</div>
+        {/* Middle Section */}
+        <nav className="flex gap-8 text-sm">
+          <a href="/" className="hover:text-white transition">Home</a>
+          <a href="/features" className="hover:text-white transition">Features</a>
+          <a href="/events" className="hover:text-white transition">Events</a>
+          <a href="/contact" className="hover:text-white transition">Contact</a>
+          <a href="/terms" className="hover:text-white transition">Terms</a>
+          <a href="/privacy" className="hover:text-white transition">Privacy</a>
+        </nav>
 
-
-        {/* Footer Bottom */}
-        <div className="text-center text-sm">
-          <p>© 2025 EventEase. All Rights Reserved.</p>
+        {/* Right Section */}
+        <div className="flex flex-col items-center md:items-end gap-3">
+          <div className="flex gap-4 text-2xl">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-white">
+              <i className="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-white">
+              <i className="fab fa-github"></i>
+            </a>
+            <a href="mailto:contact@techeventpro.com" className="hover:text-white">
+              <i className="fas fa-envelope"></i>
+            </a>
+          </div>
+          <p className="text-xs">
+            Made with 💻 by Batch 12 @ 3rd year CSE
+          </p>
         </div>
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

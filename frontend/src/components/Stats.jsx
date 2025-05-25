@@ -8,7 +8,7 @@ const Stats = () => {
       {/* Image Section */}
       <img
         src="/images/beard.png"
-        alt="Stats Illustration"
+        alt="Illustration representing event statistics"
         className="w-full max-w-sm h-auto rounded-lg shadow-md"
       />
 
@@ -16,7 +16,7 @@ const Stats = () => {
       <div className="bg-blue-100 border-4 border-blue-600 p-6 rounded-xl max-w-lg w-full shadow-xl">
         <h1 className="text-4xl font-bold text-blue-800 mb-4 text-center">Statistics</h1>
         <p className="text-gray-800 text-lg mb-6 text-center">
-          Over <span className="font-semibold text-blue-900">150+ event organizers</span> have successfully conducted their events using our platform. From college fests to corporate summits — we've got it all covered!
+          Over <span className="font-semibold text-blue-900">150+ tech event organizers</span> have successfully managed their conferences, workshops, and expos using our platform. From college fests to corporate summits — we've got it all covered!
         </p>
 
         <div className="flex justify-center">
@@ -24,7 +24,7 @@ const Stats = () => {
             className="relative cursor-pointer py-4 px-8 text-center font-barlow inline-flex justify-center text-base uppercase text-[#101050] rounded-lg border-solid transition-transform duration-300 ease-in-out group outline-offset-4 focus:outline-2 focus:outline-[#101050] focus:outline-offset-4 overflow-hidden bg-blue-300"
             onClick={() => navigate('/contact')}
           >
-            <span className="relative z-20">Contact us</span>
+            <span className="relative z-20">Get in Touch</span>
 
             <span className="absolute left-[-75%] top-0 h-full w-[50%] bg-white/20 rotate-12 z-10 blur-lg group-hover:left-[125%] transition-all duration-1000 ease-in-out"></span>
 
