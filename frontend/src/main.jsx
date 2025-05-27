@@ -52,21 +52,8 @@ import ExpertRoute from './routes/ExpertRoute.jsx';
 import OrganizerRoute from './routes/OrganizerRoute.jsx';
 
 // Optional 404 Page
-const NotFound = () => (
-  <div className="min-h-screen flex items-center justify-center bg-white px-4">
-  <div className="text-center max-w-md">
-    <h1 className="text-6xl font-bold text-gray-800 mb-4">404</h1>
-    <p className="text-xl text-gray-600 mb-6">Oops! The page you're looking for doesn't exist.</p>
-    <a
-      href="/"
-      className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-xl text-sm font-semibold shadow hover:bg-indigo-700 transition duration-300"
-    >
-      Go Back Home
-    </a>
-  </div>
-</div>
+import NotFound from './pages/NotFound.jsx';
 
-);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -85,6 +72,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/faq" element={<FAQ />} />
+        
+        {/* Fallback Route */}
+        <Route path="*" element={<NotFound />} />
+
 
         {/* Admin Routes */}
         <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
