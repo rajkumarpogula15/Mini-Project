@@ -42,10 +42,9 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/" element={<Home />} />
-  <Route path="/terms" element={<Terms />} />
-  <Route path="/privacy" element={<Privacy />} />
-  <Route path="/faq" element={<FAQ />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/faq" element={<FAQ />} />
         {/* Add other routes here */}
       </Routes>
       <Footer />
