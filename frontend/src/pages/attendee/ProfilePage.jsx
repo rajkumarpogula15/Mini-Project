@@ -69,7 +69,7 @@ const ProfilePage = () => {
             </div>
 
             <div>
-              <label className="block">Email (read-only)</label>
+              <label className="block">Email </label>
               <input
                 type="email"
                 name="email"
