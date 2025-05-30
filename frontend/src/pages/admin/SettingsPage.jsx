@@ -4,7 +4,7 @@ import { useState } from "react";
 function SettingsPage() {
   const [formData, setFormData] = useState({
     name: "Admin",
-    email: "admin@example.com",
+    email: "admin@gmail.com",
     password: "",
     confirmPassword: "",
   });

@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { X } from "lucide-react";
 
 function Register() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,16 +26,28 @@ function Register() {
     setSuccess("");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/users/register", formData);
+      await axios.post("http://localhost:5000/api/users/register", formData);
       setSuccess("✅ Registered successfully! Please log in.");
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed. Try again.");
     }
   };
 
+  const handleClose = () => {
+    navigate("/"); // 👈 Change this route if you want to navigate elsewhere
+  };
+
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
-      <div className="bg-white w-full max-w-md rounded-2xl shadow-lg p-8 sm:p-10 border border-gray-200">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 relative">
+      {/* X button */}
+      <button
+        onClick={handleClose}
+        className="absolute top-6 right-6 text-gray-600 hover:text-gray-800 transition"
+      >
+        <X size={24} />
+      </button>
+
+      <div className="bg-white w-full max-w-md rounded-2xl shadow-lg p-8 sm:p-10 border border-gray-200 relative">
         <div className="mb-6 text-center">
           <h1 className="text-2xl font-bold text-gray-800">Create Your Account</h1>
           <p className="text-sm text-gray-500 mt-1">Join TechEvents today 🚀</p>

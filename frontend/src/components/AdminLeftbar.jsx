@@ -16,7 +16,7 @@ function SidebarLayout({ children }) {
           <h2 className="text-2xl font-bold text-blue-600 mb-6">Admin</h2>
 
           <nav className="space-y-3 text-gray-700 font-medium">
-            <Link to="/admin" className="block hover:text-blue-600">🏠 Dashboard</Link>
+            <Link to="/admin/dashboard" className="block hover:text-blue-600">🏠 Dashboard</Link>
             <Link to="/admin/users" className="block hover:text-blue-600">👥 Manage Users</Link>
             <Link to="/admin/events" className="block hover:text-blue-600">🎉 Manage Events</Link>
             <Link to="/admin/experts" className="block hover:text-blue-600">🛍️ Manage Experts</Link>
