@@ -3,6 +3,12 @@ import React from 'react';
 const Terms = () => {
   return (
     <div className="max-w-4xl mx-auto px-6 py-16 bg-white rounded-lg shadow-md">
+      <button
+        onClick={() => navigate(-1)}
+        className="absolute top-4 right-4 flex items-center text-sm bg-blue-600 text-white px-3 py-1 rounded-md transition duration-200"
+      >
+        Go Back
+      </button>
       <h1 className="text-3xl font-bold mb-6 text-gray-900">Terms of Service</h1>
 
       <p className="mb-4 text-gray-700">
@@ -43,6 +49,12 @@ const Terms = () => {
       <p className="mb-4 text-gray-700">
         For questions regarding these terms, please contact us at <a href="mailto:support@techeventpro.com" className="text-indigo-600 underline">support@techeventpro.com</a>.
       </p>
+      <button
+        onClick={() => navigate(-1)}
+        className="absolute buttom-4 right-4 flex items-center text-sm bg-blue-600 text-white px-3 py-1 rounded-md transition duration-200"
+      >
+        Go Back
+      </button>
     </div>
   );
 };

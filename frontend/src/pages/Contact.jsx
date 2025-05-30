@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowLeft } from 'lucide-react';
 
 const Contact = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -36,10 +39,22 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12">
-      <div className="max-w-xl w-full bg-white rounded-lg shadow-md p-6 md:p-8">
+      <div className="max-w-xl w-full bg-white rounded-lg shadow-md p-6 md:p-8 relative">
+
+        {/* Go Back Button */}
+          <button
+            onClick={() => navigate(-1)}
+            className="absolute top-4 right-4 flex items-center text-sm text-blue-600 hover:text-white bg-transparent hover:bg-blue-600 px-3 py-1 rounded-md transition duration-200"
+          >
+            
+            X
+          </button>
+
+
         <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-6 text-center">
           Contact Tech Event Management
         </h2>
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"

@@ -39,15 +39,16 @@ function Register() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 relative">
-      {/* X button */}
+      
+
+      <div className="bg-white w-full max-w-md rounded-2xl shadow-lg p-8 sm:p-10 border border-gray-200 relative">
+        {/* X button */}
       <button
         onClick={handleClose}
         className="absolute top-6 right-6 text-gray-600 hover:text-gray-800 transition"
       >
-        <X size={24} />
+        <X size={20} />
       </button>
-
-      <div className="bg-white w-full max-w-md rounded-2xl shadow-lg p-8 sm:p-10 border border-gray-200 relative">
         <div className="mb-6 text-center">
           <h1 className="text-2xl font-bold text-gray-800">Create Your Account</h1>
           <p className="text-sm text-gray-500 mt-1">Join TechEvents today 🚀</p>

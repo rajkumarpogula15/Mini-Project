@@ -19,7 +19,7 @@ import FAQ from './components/FAQ';
 
 function Home() {
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 pt-16">
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
       {/* pt-16 to offset Navbar height, space-y-16 between sections */}
       <HeroSection />
       <Hero />

@@ -15,7 +15,7 @@ const Navbar = () => {
 
   return (
     <nav className="flex justify-between items-center px-6 py-4 bg-white text-black dark:bg-gray-900 dark:text-white shadow-md sticky top-0 z-50">
-      <div className="text-2xl font-extrabold tracking-wide text-blue-600 dark:text-yellow-400 cursor-pointer">
+      <div className="text-2xl font-extrabold tracking-wide text-blue-600 dark:text-[#EB4D4B] cursor-pointer">
         Tech Event Management
       </div>
 

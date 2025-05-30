@@ -1,4 +1,3 @@
-// src/components/HeroSection.jsx
 import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Lottie from 'lottie-react';
@@ -43,79 +42,74 @@ const zoomIn = {
 const HeroSection = () => {
   const lottieRef = useRef();
 
-  // Play Lottie only once on mount
   useEffect(() => {
     lottieRef.current?.play();
   }, []);
 
   return (
-    <section className="relative min-h-screen bg-white overflow-hidden">
-      {/* 🔵 Background Animation (once on load) */}
-      <motion.div
-        className="absolute inset-0 z-0 w-full h-full"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.2, ease: 'easeOut' }}
-      >
+    <section className="min-h-[80vh] bg-white flex flex-col md:flex-row items-center">
+
+      {/* 🔵 Left Animation Panel */}
+      <div className="w-full md:w-1/3 flex items-center justify-center p-6">
         <Lottie
           lottieRef={lottieRef}
           animationData={animationData}
-          loop={false}
+          loop={true}
           autoplay={false}
-          className="w-full h-full"
+          className="w-full h-auto"
         />
-      </motion.div>
+      </div>
 
-      {/* 🔵 Foreground Content */}
+      {/* 🔵 Right Content Panel */}
       <motion.div
-        className="relative z-20 py-20 px-6 text-center max-w-5xl mx-auto"
+        className="w-full md:w-2/3 flex items-center justify-center p-8"
         variants={containerVariants}
         initial="hidden"
         animate="show"
       >
-        <motion.h1
-          variants={fadeUp}
-          className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight tracking-tight mb-6"
-        >
-          Your All-in-One Solution for{' '}
-          <span className="block text-indigo-600">Tech Event Management</span>
-        </motion.h1>
+        <div className="text-center max-w-2xl">
+          <motion.h1
+  variants={fadeUp}
+  className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight tracking-tight mb-6"
+>
+  Your All-in-One Solution for{' '}
+  <span className="block text-[#EB4D4B]">Tech Event Management</span>
+</motion.h1>
 
-        <motion.p
-          variants={fadeUp}
-          className="text-md sm:text-lg md:text-xl text-gray-700 mb-10 max-w-3xl mx-auto leading-relaxed"
-        >
-          Plan, host, and engage in immersive webinars, hackathons, and expert-led sessions — all from one seamless platform.
-        </motion.p>
+<motion.p
+  variants={fadeUp}
+  className="text-sm sm:text-base md:text-lg text-gray-600 mb-10 leading-relaxed"
+>
+  Plan, host, and engage in immersive webinars, hackathons, and expert-led sessions — all from one seamless platform.
+</motion.p>
 
-        <motion.div
-          variants={zoomIn}
-          className="flex flex-col sm:flex-row justify-center items-center gap-4"
-        >
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Link to="/login">
-              <button className="bg-indigo-600 text-white text-sm sm:text-base px-6 py-3 rounded-full font-semibold shadow-md hover:bg-indigo-700 transition">
-                🎉 Host an Event
-              </button>
-            </Link>
-          </motion.div>
+<motion.div variants={zoomIn} className="flex flex-col sm:flex-row justify-center items-center gap-4">
+  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+    <Link to="/login">
+      <button className="bg-[#EB4D4B] text-white text-xs sm:text-sm px-5 py-2.5 rounded-full font-semibold shadow-md hover:bg-[#e43b3b] transition">
+        🎉 Host an Event
+      </button>
+    </Link>
+  </motion.div>
 
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Link to="/login">
-              <button className="bg-purple-600 text-white text-sm sm:text-base px-6 py-3 rounded-full font-semibold shadow-md hover:bg-purple-700 transition">
-                🎙️ Join as an Expert
-              </button>
-            </Link>
-          </motion.div>
+  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+    <Link to="/login">
+      <button className="bg-[#FF6B6B] text-white text-xs sm:text-sm px-5 py-2.5 rounded-full font-semibold shadow-md hover:bg-[#ff4d4d] transition">
+        🎙️ Join as an Expert
+      </button>
+    </Link>
+  </motion.div>
 
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Link to="/login">
-              <button className="bg-gray-200 text-gray-900 text-sm sm:text-base px-6 py-3 rounded-full font-medium hover:bg-gray-300 transition">
-                🔍 Attend an Event
-              </button>
-            </Link>
-          </motion.div>
-        </motion.div>
+  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+    <Link to="/login">
+      <button className="bg-gray-200 text-gray-900 text-xs sm:text-sm px-5 py-2.5 rounded-full font-medium hover:bg-gray-300 transition">
+        🔍 Attend an Event
+      </button>
+    </Link>
+  </motion.div>
+</motion.div>
+
+        </div>
       </motion.div>
     </section>
   );

@@ -16,6 +16,7 @@ import Contact from './pages/Contact.jsx';
 import Terms from './components/Terms';
 import Privacy from './components/Privacy';
 import FAQ from './components/FAQ';
+import LearnMore from './pages/LearnMore.jsx';
 
 // Admin Pages
 import AdminDashboard from './pages/AdminDashboard';
@@ -78,6 +79,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/faq" element={<FAQ />} />
+        <Route path="/learnmore" element={<LearnMore />} />
         
         {/* Fallback Route */}
         <Route path="*" element={<NotFound />} />

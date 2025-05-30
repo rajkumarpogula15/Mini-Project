@@ -1,8 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Privacy = () => {
+  const navigate = useNavigate();
+
   return (
-    <div className="max-w-4xl mx-auto px-6 py-16 bg-white rounded-lg shadow-md">
+    <div className="relative max-w-4xl mx-auto px-6 py-16 bg-white rounded-lg shadow-md">
+      {/* Go Back Button */}
+      <button
+        onClick={() => navigate(-1)}
+        className="absolute top-4 right-4 flex items-center text-sm bg-blue-600 text-white px-3 py-1 rounded-md transition duration-200"
+      >
+        Go Back
+      </button>
+
       <h1 className="text-3xl font-bold mb-6 text-gray-900">Privacy Policy</h1>
 
       <p className="mb-4 text-gray-700">
@@ -53,6 +64,12 @@ const Privacy = () => {
       <p className="mb-4 text-gray-700">
         For privacy concerns, please email us at <a href="mailto:privacy@techeventpro.com" className="text-indigo-600 underline">privacy@techeventpro.com</a>.
       </p>
+      <button
+        onClick={() => navigate(-1)}
+        className="absolute buttom-4 right-4 flex items-center text-sm bg-blue-600 text-white px-3 py-1 rounded-md transition duration-200"
+      >
+        Go Back
+      </button>
     </div>
   );
 };
