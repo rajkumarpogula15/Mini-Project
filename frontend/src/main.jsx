@@ -24,6 +24,9 @@ import AdminMessages from './pages/admin/Messages.jsx';
 import ManageExperts from './pages/admin/ManageExperts.jsx';
 import ManageUsers from './pages/admin/ManageUsers';
 import ManageBookings from './pages/admin/ManageBookings';
+import ReviewsPage from "./pages/admin/ReviewsPage";
+import PaymentsPage from "./pages/admin/PaymentsPage";
+import SettingsPage from "./pages/admin/SettingsPage";
 
 // Organizer Pages
 import ManageEvents from './pages/organizer/ManageEvents.jsx';
@@ -45,6 +48,9 @@ import ExpertProfile from './pages/expert/ExpertProfile.jsx';
 import AttendeeDashboard from './pages/attendee/Dashboard.jsx';
 import AttendeeMyEvents from './pages/attendee/MyEvents.jsx';
 import ExploreEvents from './pages/attendee/EventDetail.jsx';
+import CertificatesPage from './pages/attendee/CertificatesPage.jsx';
+import ProfilePage from './pages/attendee/ProfilePage.jsx';
+
 
 // Route Guards
 import AdminRoute from './routes/AdminRoutes.jsx';
@@ -84,6 +90,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/admin/users" element={<AdminRoute><ManageUsers /></AdminRoute>} />
         <Route path="/admin/bookings" element={<AdminRoute><ManageBookings /></AdminRoute>} />
         <Route path="/admin/messages" element={<AdminRoute><AdminMessages /></AdminRoute>} />
+        <Route path="/admin/reviews" element={<AdminRoute><ReviewsPage /></AdminRoute>} />
+        <Route path="/admin/payments" element={<AdminRoute><PaymentsPage /></AdminRoute>} />
+        <Route path="/admin/settings" element={<AdminRoute><SettingsPage /></AdminRoute>} />
 
         {/* Organizer Routes */}
         <Route path="/organizer/events" element={<OrganizerRoute><ManageEvents /></OrganizerRoute>} />
@@ -105,6 +114,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/attendee/dashboard" element={<AttendeeDashboard />} />
         <Route path="/attendee/myevents" element={<AttendeeMyEvents />} />
         <Route path="/attendee/events" element={<ExploreEvents />} />
+        <Route path="/attendee/certificates" element={<CertificatesPage />} />
+        <Route path="/attendee/profile" element={<ProfilePage />} />
+
 
         {/* Fallback Route */}
         <Route path="*" element={<NotFound />} />
