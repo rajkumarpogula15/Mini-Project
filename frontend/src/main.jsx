@@ -30,6 +30,7 @@ import PaymentsPage from "./pages/admin/PaymentsPage";
 import SettingsPage from "./pages/admin/SettingsPage";
 
 // Organizer Pages
+import OrganizerDashboard from './pages/OrganizerDashboard.jsx';
 import ManageEvents from './pages/organizer/ManageEvents.jsx';
 import BookVendors from './pages/organizer/BookExperts.jsx';
 import OrganizerProfile from './pages/organizer/Profile';
@@ -97,6 +98,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/admin/settings" element={<AdminRoute><SettingsPage /></AdminRoute>} />
 
         {/* Organizer Routes */}
+        <Route path="/organizer/dashboard" element={<OrganizerRoute><OrganizerDashboard /></OrganizerRoute>} />
+
         <Route path="/organizer/events" element={<OrganizerRoute><ManageEvents /></OrganizerRoute>} />
         <Route path="/organizer/experts/book" element={<OrganizerRoute><BookVendors /></OrganizerRoute>} />
         <Route path="/organizer/profile" element={<OrganizerRoute><OrganizerProfile /></OrganizerRoute>} />
