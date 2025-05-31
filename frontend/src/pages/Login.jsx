@@ -33,7 +33,7 @@ function Login() {
           navigate("/admin/dashboard");
           break;
         case "organizer":
-          navigate("/organizer/events");
+          navigate("/organizer/dashboard");
           break;
         case "expert":
           navigate("/expert/dashboard");

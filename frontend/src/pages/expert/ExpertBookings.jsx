@@ -7,15 +7,20 @@ function ExpertBookings() {
   const token = localStorage.getItem("userToken");
 
   const fetchBookings = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/api/bookings/expert", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setBookings(res.data);
-    } catch (err) {
-      console.error("Failed to load expert bookings:", err.message);
-    }
-  };
+  try {
+    console.log("📡 Fetching expert bookings...");
+
+    const res = await axios.get("http://localhost:5000/api/bookings/expert", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    console.log("✅ Bookings fetched successfully:", res.data);
+    setBookings(res.data);
+  } catch (err) {
+    console.error("❌ Failed to load expert bookings:", err.message);
+  }
+};
+
 
   const updateStatus = async (bookingId, status) => {
     try {

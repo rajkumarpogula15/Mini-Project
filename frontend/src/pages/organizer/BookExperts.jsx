@@ -3,18 +3,18 @@ import axios from "axios";
 import OrganizerSidebarLayout from "../../components/OrganizerSidebarLayout";
 
 function BookExperts() {
-  const [vendors, setVendors] = useState([]);
+  const [experts, setExperts] = useState([]);
   const [filter, setFilter] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const token = localStorage.getItem("userToken");
 
-  const fetchVendors = async () => {
+  const fetchExperts = async () => {
     setLoading(true);
     setError(null);
     try {
       const res = await axios.get("http://localhost:5000/api/experts/all");
-      setVendors(res.data);
+      setExperts(res.data);
     } catch (err) {
       console.error("Failed to load experts:", err.message);
       setError("Failed to load experts.");
@@ -23,17 +23,19 @@ function BookExperts() {
     }
   };
 
-  const handleBooking = async (vendorId) => {
+  const handleBooking = async (expertId) => {
     const eventDate = prompt("Enter event date (YYYY-MM-DD):");
     if (!eventDate) return alert("Event date is required.");
 
-    const message = prompt("Optional message for the vendor:");
+    const message = prompt("Optional message for the expert:");
 
     try {
       await axios.post(
         "http://localhost:5000/api/bookings",
-        { vendorId, eventDate, message },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { expertId, eventDate, message },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
       alert("Booking request sent ✅");
     } catch (err) {
@@ -43,12 +45,12 @@ function BookExperts() {
   };
 
   useEffect(() => {
-    fetchVendors();
+    fetchExperts();
   }, []);
 
-  const filtered = vendors.filter((vendor) => {
-    const category = vendor.category?.toLowerCase() || "";
-    const location = vendor.location?.toLowerCase() || "";
+  const filtered = experts.filter((expert) => {
+    const category = expert.category?.toLowerCase() || "";
+    const location = expert.location?.toLowerCase() || "";
     const filterText = filter.toLowerCase();
     return category.includes(filterText) || location.includes(filterText);
   });
@@ -75,18 +77,18 @@ function BookExperts() {
 
         {!loading && !error && filtered.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {filtered.map((vendor) => (
-              <div key={vendor._id} className="bg-white shadow p-4 rounded">
-                <h3 className="text-xl font-semibold text-indigo-600">{vendor.name}</h3>
-                <p className="text-sm text-gray-600">📍 {vendor.location || "N/A"}</p>
-                <p className="text-sm text-gray-600">📂 {vendor.category || "N/A"}</p>
-                <p className="text-sm text-gray-600">💰 {vendor.priceRange || "N/A"}</p>
+            {filtered.map((expert) => (
+              <div key={expert._id} className="bg-white shadow p-4 rounded">
+                <h3 className="text-xl font-semibold text-indigo-600">{expert.name}</h3>
+                <p className="text-sm text-gray-600">📍 {expert.location || "N/A"}</p>
+                <p className="text-sm text-gray-600">📂 {expert.category || "N/A"}</p>
+                <p className="text-sm text-gray-600">💰 {expert.priceRange || "N/A"}</p>
                 <p className="text-sm text-gray-600">
-                  📅 {vendor.availableDates?.length || 0} dates available
+                  📅 {expert.availableDates?.length || 0} dates available
                 </p>
 
                 <button
-                  onClick={() => handleBooking(vendor._id)}
+                  onClick={() => handleBooking(expert._id)}
                   className="mt-3 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm"
                 >
                   Book Now

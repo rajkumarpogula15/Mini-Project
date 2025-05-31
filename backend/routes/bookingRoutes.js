@@ -6,9 +6,13 @@ const router = express.Router();
 
 // @route   POST /api/bookings
 // @desc    Create a new booking
-router.post('/', protect, async (req, res) => {
+router.post("/", protect, async (req, res) => {
   try {
     const { expertId, eventDate, message } = req.body;
+
+    if (!expertId || !eventDate) {
+      return res.status(400).json({ message: "expertId and eventDate are required." });
+    }
 
     const booking = new Booking({
       organizer: req.user._id,
@@ -20,8 +24,8 @@ router.post('/', protect, async (req, res) => {
     const saved = await booking.save();
     res.status(201).json(saved);
   } catch (err) {
-    console.error("Booking error:", err.message);
-    res.status(500).json({ message: err.message });
+    console.error("Booking error:", err);
+    res.status(500).json({ message: "Internal server error." });
   }
 });
 
@@ -43,17 +47,37 @@ router.put('/:id', protect, async (req, res) => {
 
 // @route   GET /api/bookings/expert
 // @desc    Get bookings for logged-in expert
-router.get('/expert', protect, async (req, res) => {
+// router.get('/expert', protect, async (req, res) => {
+//   try {
+//     const bookings = await Booking.find({ expert: req.user._id })
+//       .populate('organizer', 'name email phone')
+//       .sort({ createdAt: -1 });
+
+//     res.json(bookings);
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// });
+// @route   GET /api/bookings/expert
+// @desc    Get all bookings for the logged-in expert
+// @access  Private (Expert)
+router.get("/expert", protect, async (req, res) => {
   try {
+    console.log("🔍 GET /api/bookings/expert hit by:", req.user._id);
+
     const bookings = await Booking.find({ expert: req.user._id })
-      .populate('organizer', 'name email phone')
+      .populate("organizer", "name email")
       .sort({ createdAt: -1 });
+
+    console.log("📦 Bookings found:", bookings.length);
 
     res.json(bookings);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error("❌ Error fetching expert bookings:", err);
+    res.status(500).json({ message: "Server error fetching bookings." });
   }
 });
+
 
 // @route   GET /api/bookings/organizer
 // @desc    Get bookings for logged-in organizer
