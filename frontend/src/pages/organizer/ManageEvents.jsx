@@ -11,12 +11,14 @@ function ManageEvents() {
   const [showModal, setShowModal] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState(null);
+  const [token, setToken] = useState("");
 
   const fetchEvents = async () => {
     try {
-      const token = localStorage.getItem("userToken");
+      const userToken = localStorage.getItem("userToken");
+      setToken(userToken);
       const res = await axios.get("http://localhost:5000/api/events/myevents", {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${userToken}` },
       });
       setEvents(res.data);
     } catch (err) {
@@ -27,7 +29,6 @@ function ManageEvents() {
   const deleteEvent = async (eventId) => {
     if (!window.confirm("Are you sure you want to delete this event?")) return;
     try {
-      const token = localStorage.getItem("userToken");
       await axios.delete(`http://localhost:5000/api/events/${eventId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -86,6 +87,7 @@ function ManageEvents() {
               onDelete={deleteEvent}
               onEdit={editEvent}
               onBookVendors={openBookingModal}
+              token={token} // ✅ Pass token to EventCard
             />
           ))}
         </div>

@@ -1,7 +1,7 @@
 import express from "express";
 import Registration from "../models/Registration.js";
 import Event from "../models/Event.js";
-import { protect, isOrganizer } from "../middleware/authMiddleware.js";
+import { protect, isOrganizer } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -100,12 +100,9 @@ router.delete("/:registrationId", protect, isOrganizer, async (req, res) => {
 });
 
 // 5. Attendee: Get all events they have registered for
-router.get("/myevent", async (req, res) => {
+router.get("/myevent", protect, async (req, res) => {
   try {
-    const userId = req.query.userId;
-    if (!userId) {
-      return res.status(400).json({ message: "Missing userId in query" });
-    }
+    const userId = req.user._id;
 
     const registrations = await Registration.find({ user: userId }).populate("event");
     res.json({ registrations });

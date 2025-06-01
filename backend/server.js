@@ -12,6 +12,7 @@ import adminRoutes from './routes/adminRoutes.js';
 import attendeeRoutes from './routes/attendeeRoutes.js';
 import contactRoutes from './routes/contactRoutes.js';
 import uploadRoutes from './routes/upload.js'; 
+import registrationRoutes from './routes/Registrationroutes.js'; // ✅ Correct import path
 
 dotenv.config();
 
@@ -38,14 +39,15 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/attendee', attendeeRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/upload', uploadRoutes);
-app.use('/uploads', express.static('uploads'));
+app.use('/api/registrations', registrationRoutes); // ✅ Your new route
+app.use('/uploads', express.static('uploads')); // Serve uploaded files
 
 // Health check endpoint
 app.get('/', (req, res) => {
   res.send('Tech Event Management API is running...');
 });
 
-// Global error handler (optional, but recommended)
+// Optional: Global error handler
 app.use((err, req, res, next) => {
   console.error('Global error handler:', err);
   res.status(500).json({ message: 'Internal server error' });

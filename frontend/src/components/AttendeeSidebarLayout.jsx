@@ -30,9 +30,11 @@ function AttendeeSidebarLayout({ children }) {
       </div>
 
       {/* Sidebar */}
-      <aside className={`fixed md:relative top-0 md:top-auto left-0 z-40 bg-white w-64 h-full md:h-auto shadow-lg p-6 pt-20 md:pt-6 space-y-6 transform transition-transform duration-300 ease-in-out ${
-        sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
-      }`}>
+      <aside
+        className={`fixed md:relative top-0 md:top-auto left-0 z-40 bg-white w-64 h-full md:h-auto shadow-lg p-6 pt-20 md:pt-6 space-y-6 transform transition-transform duration-300 ease-in-out ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        }`}
+      >
         <h2 className="hidden md:block text-2xl font-bold text-indigo-600">Attendee Panel</h2>
         <nav className="space-y-3 text-gray-700 font-medium">
           {links.map((link) => (
@@ -56,7 +58,9 @@ function AttendeeSidebarLayout({ children }) {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 md:ml-64 pt-16 md:pt-6">{children}</main>
+      <main className="flex-1 p-6 pt-16 md:pt-6">
+        {children}
+      </main>
     </div>
   );
 }

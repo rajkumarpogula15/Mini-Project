@@ -37,9 +37,9 @@ function ExploreEvents() {
     const fetchJoinedEvents = async (userId) => {
       try {
         const res = await axios.get("http://localhost:5000/api/registrations/myevent", {
-  params: { userId },
-  headers: { Authorization: `Bearer ${token}` },
-});
+        params: { userId },
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
 
         const joinedIds = new Set(res.data.registrations.map((reg) => reg.event._id));
@@ -82,9 +82,15 @@ function ExploreEvents() {
     }
   };
 
-  const filtered = events.filter((e) =>
+  const filtered = events.filter((e) => {
+  const eventDate = new Date(e.date);
+  const now = new Date();
+  return (
+    eventDate >= now &&
     e.title.toLowerCase().includes(search.toLowerCase())
   );
+});
+
 
   return (
     <AttendeeSidebarLayout>

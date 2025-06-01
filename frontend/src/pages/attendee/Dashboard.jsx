@@ -1,3 +1,4 @@
+// src/pages/attendee/AttendeeDashboard.jsx
 import { useEffect, useState } from "react";
 import axios from "axios";
 import AttendeeSidebarLayout from "../../components/AttendeeSidebarLayout";
@@ -16,14 +17,15 @@ function AttendeeDashboard() {
 
   const fetchData = async () => {
     try {
-      const eventsRes = await axios.get("http://localhost:5000/api/attendee/myevents", { headers });
-      const recRes = await axios.get("http://localhost:5000/api/events/recommended", { headers });
       const profileRes = await axios.get("http://localhost:5000/api/users/profile", { headers });
+      const profile = profileRes.data;
 
-      setMyEvents(eventsRes.data || []);
+      const res = await axios.get("http://localhost:5000/api/registrations/myevent", { headers });
+      setMyEvents(res.data.registrations || []);
+
+      const recRes = await axios.get("http://localhost:5000/api/events/recommended", { headers });
       setRecommended(recRes.data || []);
 
-      const profile = profileRes.data;
       const fields = ["name", "email", "phone", "bio"];
       const filled = fields.filter((field) => profile[field]);
       setProfileCompletion(Math.round((filled.length / fields.length) * 100));
