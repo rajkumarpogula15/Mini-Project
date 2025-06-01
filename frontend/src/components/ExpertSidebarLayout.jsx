@@ -17,8 +17,7 @@ function ExpertSidebarLayout({ children }) {
 
           <nav className="space-y-3 text-gray-700 font-medium">
             <Link to="/expert/dashboard" className="block hover:text-blue-700">🏠 Dashboard</Link>
-            <Link to="/expert/services" className="block hover:text-blue-700">📋 Manage Sessions</Link>
-            <Link to="/expert/bookings" className="block hover:text-blue-700">📅 Bookings</Link>
+            <Link to="/expert/services" className="block hover:text-blue-700">📋 Service and Bookings</Link>
             <Link to="/expert/earnings" className="block hover:text-blue-700">💰 Earnings</Link>
             <Link to="/expert/reviews" className="block hover:text-blue-700">⭐ Reviews</Link>
             <Link to="/expert/profile" className="block hover:text-blue-700">👤 Profile</Link>

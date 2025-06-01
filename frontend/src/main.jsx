@@ -41,7 +41,6 @@ import OrganizerBookings from './pages/organizer/OrganizerBookings.jsx';
 // Expert Pages
 import ExpertDashboard from './pages/expert/ExpertDashboard.jsx';
 import ManageServices from './pages/expert/ManageServices.jsx';
-import ExpertBookings from './pages/expert/ExpertBookings.jsx';
 import ExpertEarnings from './pages/expert/ExpertEarnings.jsx';
 import ExpertReviews from './pages/expert/ExpertReviews.jsx';
 import ExpertProfile from './pages/expert/ExpertProfile.jsx';
@@ -110,7 +109,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         {/* Expert Routes */}
         <Route path="/expert/dashboard" element={<ExpertRoute><ExpertDashboard /></ExpertRoute>} />
         <Route path="/expert/services" element={<ExpertRoute><ManageServices /></ExpertRoute>} />
-        <Route path="/expert/bookings" element={<ExpertRoute><ExpertBookings /></ExpertRoute>} />
         <Route path="/expert/earnings" element={<ExpertRoute><ExpertEarnings /></ExpertRoute>} />
         <Route path="/expert/reviews" element={<ExpertRoute><ExpertReviews /></ExpertRoute>} />
         <Route path="/expert/profile" element={<ExpertRoute><ExpertProfile /></ExpertRoute>} />
