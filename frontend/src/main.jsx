@@ -36,7 +36,7 @@ import BookVendors from './pages/organizer/BookExperts.jsx';
 import OrganizerProfile from './pages/organizer/Profile';
 import UploadMedia from './pages/organizer/UploadMedia.jsx';
 import ShareEvent from './pages/organizer/ShareEvent.jsx';
-import ExpertRecommendations from './pages/organizer/ExpertRecommendations.jsx';
+import OrganizerBookings from './pages/organizer/OrganizerBookings.jsx';
 
 // Expert Pages
 import ExpertDashboard from './pages/expert/ExpertDashboard.jsx';
@@ -105,7 +105,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/organizer/profile" element={<OrganizerRoute><OrganizerProfile /></OrganizerRoute>} />
         <Route path="/organizer/media" element={<OrganizerRoute><UploadMedia /></OrganizerRoute>} />
         <Route path="/organizer/share" element={<OrganizerRoute><ShareEvent /></OrganizerRoute>} />
-        <Route path="/organizer/experts/recommended" element={<OrganizerRoute><ExpertRecommendations /></OrganizerRoute>} />
+        <Route path="/organizer/OrganizerBookings" element={<OrganizerRoute><OrganizerBookings /></OrganizerRoute>} />
 
         {/* Expert Routes */}
         <Route path="/expert/dashboard" element={<ExpertRoute><ExpertDashboard /></ExpertRoute>} />

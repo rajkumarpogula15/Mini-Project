@@ -7,9 +7,22 @@ function ExploreEvents() {
   const [joinedEvents, setJoinedEvents] = useState(new Set());
   const [loadingJoin, setLoadingJoin] = useState(null);
   const [search, setSearch] = useState("");
+  const [user, setUser] = useState(null);
   const token = localStorage.getItem("userToken");
 
   useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/users/me", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setUser(res.data);
+        fetchJoinedEvents(res.data._id); // Fetch joined events after user info is available
+      } catch (err) {
+        console.error("Failed to fetch user info:", err.message);
+      }
+    };
+
     const fetchEvents = async () => {
       try {
         const res = await axios.get("http://localhost:5000/api/events/all", {
@@ -21,36 +34,49 @@ function ExploreEvents() {
       }
     };
 
-    const fetchJoinedEvents = async () => {
+    const fetchJoinedEvents = async (userId) => {
       try {
-        const res = await axios.get("http://localhost:5000/api/attendees/my-events", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const joinedIds = new Set(res.data.map((e) => e._id));
+        const res = await axios.get("http://localhost:5000/api/registrations/myevent", {
+  params: { userId },
+  headers: { Authorization: `Bearer ${token}` },
+});
+
+
+        const joinedIds = new Set(res.data.registrations.map((reg) => reg.event._id));
         setJoinedEvents(joinedIds);
       } catch (err) {
         console.error("Failed to load joined events:", err.message);
       }
     };
 
-    fetchEvents();
-    fetchJoinedEvents();
+    if (token) {
+      fetchUserInfo();
+      fetchEvents();
+    }
   }, [token]);
 
   const handleJoin = async (eventId) => {
-    if (loadingJoin) return;
+    if (!user || loadingJoin) return;
 
     setLoadingJoin(eventId);
 
     try {
       await axios.post(
-        "http://localhost:5000/api/attendees/register",
-        { eventId },
-        { headers: { Authorization: `Bearer ${token}` } }
+        "http://localhost:5000/api/registrations/register",
+        {
+          eventId,
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
+
       setJoinedEvents((prev) => new Set(prev).add(eventId));
     } catch (err) {
-      alert(err.response?.data?.message || "Failed to join event");
+      alert(err.response?.data?.message || "Failed to register for event");
     } finally {
       setLoadingJoin(null);
     }
@@ -75,7 +101,9 @@ function ExploreEvents() {
         {filtered.map((event) => (
           <div key={event._id} className="bg-white shadow p-4 rounded">
             <h3 className="text-lg font-semibold text-indigo-600">{event.title}</h3>
-            <p className="text-sm text-gray-600">{new Date(event.date).toLocaleDateString()}</p>
+            <p className="text-sm text-gray-600">
+              {new Date(event.date).toLocaleDateString()}
+            </p>
             <p>{event.location}</p>
             <button
               onClick={() => handleJoin(event._id)}

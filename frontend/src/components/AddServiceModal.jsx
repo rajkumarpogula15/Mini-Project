@@ -4,11 +4,11 @@ import axios from "axios";
 function AddServiceModal({ isOpen, onClose, onServiceAdded }) {
   const [formData, setFormData] = useState({
     name: "",
-    category: "",
+    expertise: "", // ✅ corrected
     location: "",
     priceRange: "",
     description: "",
-    availableDates: ""
+    availability: ""
   });
 
   const token = localStorage.getItem("userToken");
@@ -21,20 +21,18 @@ function AddServiceModal({ isOpen, onClose, onServiceAdded }) {
     e.preventDefault();
 
     try {
-     const payload = {
-  name: formData.name,
-  expertise: formData.category, // use `category` as `expertise`
-  location: formData.location,
-  priceRange: formData.priceRange,
-  description: formData.description,
-  availableDates: formData.availableDates
-    .split(",")
-    .map(date => new Date(date.trim()).toISOString()),
-};
+      const payload = {
+        name: formData.name,
+        expertise: formData.expertise, // ✅ corrected
+        location: formData.location,
+        priceRange: formData.priceRange,
+        description: formData.description,
+        availability: formData.availableDates
+          .split(",")
+          .map((date) => new Date(date.trim()).toISOString())
+      };
 
-
-
-      console.log("Payload being sent:", payload); // Debug log
+      console.log("Payload being sent:", payload);
 
       await axios.post("http://localhost:5000/api/experts", payload, {
         headers: {
@@ -43,8 +41,8 @@ function AddServiceModal({ isOpen, onClose, onServiceAdded }) {
         }
       });
 
-      onServiceAdded(); // Refresh the service list
-      onClose(); // Close modal
+      onServiceAdded();
+      onClose();
     } catch (err) {
       const errorMessage =
         err.response?.data?.message || err.response?.data || err.message;
@@ -81,9 +79,9 @@ function AddServiceModal({ isOpen, onClose, onServiceAdded }) {
           />
           <input
             type="text"
-            name="category"
-            placeholder="Category (e.g. AI, Cybersecurity)"
-            value={formData.category}
+            name="expertise" // ✅ corrected
+            placeholder="Expertise (e.g. AI, Cybersecurity)"
+            value={formData.expertise} // ✅ corrected
             onChange={handleChange}
             required
             className="w-full border border-gray-300 p-2 rounded"

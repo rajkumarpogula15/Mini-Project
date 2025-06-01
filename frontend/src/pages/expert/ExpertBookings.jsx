@@ -1,37 +1,48 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ExpertSidebarLayout from "../../components/ExpertSidebarLayout";
+import { toast } from "sonner";
 
-function ExpertBookings() {
+const ExpertBookings = () => {
   const [bookings, setBookings] = useState([]);
-  const token = localStorage.getItem("userToken");
+  const [loading, setLoading] = useState(true);
 
+  // Fetch bookings for logged-in expert
   const fetchBookings = async () => {
-  try {
-    console.log("📡 Fetching expert bookings...");
+    try {
+      const response = await axios.get("/api/bookings/expert", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      // Make sure bookings is an array before setting
+      setBookings(Array.isArray(response.data) ? response.data : []);
+    } catch (error) {
+      console.error("Error fetching bookings:", error);
+      toast.error("Failed to load bookings");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const res = await axios.get("http://localhost:5000/api/bookings/expert", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    console.log("✅ Bookings fetched successfully:", res.data);
-    setBookings(res.data);
-  } catch (err) {
-    console.error("❌ Failed to load expert bookings:", err.message);
-  }
-};
-
-
-  const updateStatus = async (bookingId, status) => {
+  // Update booking status (accept/reject)
+  const handleResponse = async (id, status) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/bookings/${bookingId}`,
+        `/api/bookings/${id}/status`,
         { status },
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
+      toast.success(`Booking ${status} successfully`);
+      // Refresh bookings after status update
       fetchBookings();
     } catch (err) {
-      console.error(`Failed to update booking:`, err.message);
+      console.error("Error updating status:", err);
+      toast.error("Failed to update booking status");
     }
   };
 
@@ -41,51 +52,73 @@ function ExpertBookings() {
 
   return (
     <ExpertSidebarLayout>
-      <h1 className="text-2xl font-bold mb-4">📅 Expert Booking Requests</h1>
-      {bookings.length === 0 ? (
-        <p className="text-gray-500">No bookings yet.</p>
-      ) : (
-        <div className="space-y-4">
-          {bookings.map((b) => (
-            <div key={b._id} className="bg-white shadow p-4 rounded">
-              <p><strong>Organizer:</strong> {b.organizer?.name || "Unknown"}</p>
-              <p><strong>Date:</strong> {new Date(b.eventDate).toLocaleDateString()}</p>
-              <p><strong>Message:</strong> {b.message || "—"}</p>
-              <p>
-                <strong>Status:</strong>{" "}
-                <span className={`capitalize font-semibold ${
-                  b.status === "pending" ? "text-yellow-600" :
-                  b.status === "accepted" ? "text-green-600" :
-                  b.status === "rejected" ? "text-red-600" :
-                  b.status === "cancelled" ? "text-gray-600" :
-                  "text-gray-500"
-                }`}>
-                  {b.status}
-                </span>
-              </p>
+      <div className="p-6">
+        <h1 className="text-2xl font-bold mb-4">My Bookings</h1>
 
-              {b.status === "pending" && (
-                <div className="mt-3 space-x-3">
-                  <button
-                    onClick={() => updateStatus(b._id, "accepted")}
-                    className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
+        {loading ? (
+          <div className="text-center py-10 text-gray-500">Loading...</div>
+        ) : bookings.length === 0 ? (
+          <div className="text-center py-10 text-gray-500">No bookings found.</div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {bookings.map((booking) => (
+              <div
+                key={booking._id}
+                className="bg-white shadow-md rounded-2xl p-4 border border-gray-200"
+              >
+                <h2 className="text-xl font-semibold text-gray-800 mb-2">
+                  Booking from {booking.organizer?.name || "Organizer"}
+                </h2>
+                <p className="text-sm text-gray-600 mb-1">
+                  Email: {booking.organizer?.email}
+                </p>
+                <p className="text-sm text-gray-600 mb-1">
+                  Phone: {booking.organizer?.phone}
+                </p>
+                <p className="text-sm text-gray-600 mb-1">
+                  Event Date: {new Date(booking.eventDate).toLocaleDateString()}
+                </p>
+                <p className="text-sm text-gray-700 mb-3">
+                  Message: {booking.message || "No message"}
+                </p>
+
+                <div className="mt-2">
+                  <span
+                    className={`px-3 py-1 text-sm rounded-full font-medium ${
+                      booking.status === "pending"
+                        ? "bg-yellow-100 text-yellow-800"
+                        : booking.status === "accepted"
+                        ? "bg-green-100 text-green-800"
+                        : "bg-red-100 text-red-800"
+                    }`}
                   >
-                    Accept
-                  </button>
-                  <button
-                    onClick={() => updateStatus(b._id, "rejected")}
-                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
-                  >
-                    Reject
-                  </button>
+                    Status: {booking.status}
+                  </span>
                 </div>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
+
+                {booking.status === "pending" && (
+                  <div className="flex gap-2 mt-4">
+                    <button
+                      onClick={() => handleResponse(booking._id, "accepted")}
+                      className="flex-1 bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 transition"
+                    >
+                      Accept
+                    </button>
+                    <button
+                      onClick={() => handleResponse(booking._id, "rejected")}
+                      className="flex-1 bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 transition"
+                    >
+                      Reject
+                    </button>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </ExpertSidebarLayout>
   );
-}
+};
 
 export default ExpertBookings;

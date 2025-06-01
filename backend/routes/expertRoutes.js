@@ -47,6 +47,7 @@ router.post('/', protect, async (req, res) => {
 router.get('/all', async (req, res) => {
   try {
     const experts = await Expert.find().sort({ createdAt: -1 });
+    // console.log(experts);
     res.json(experts);
   } catch (err) {
     res.status(500).json({ message: 'Server error' });

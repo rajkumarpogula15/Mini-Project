@@ -22,6 +22,13 @@ router.get('/profile', protect, async (req, res) => {
   }
 });
 
+// GET /api/users/me
+router.get("/me", protect, (req, res) => {
+  if (!req.user) return res.status(401).json({ message: "Not logged in" });
+  res.json(req.user);
+});
+
+
 // Update own profile
 router.put('/profile', protect, async (req, res) => {
   try {
