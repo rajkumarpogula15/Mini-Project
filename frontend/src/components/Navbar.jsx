@@ -40,15 +40,15 @@ const Navbar = () => {
             Register
           </Link>
         </li>
-        <li>
-          <button
+        {/* <li> */}
+          {/* <button
             onClick={() => setDarkMode(!darkMode)}
             aria-label="Toggle Dark Mode"
             className="text-xl px-3 py-1 rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
           >
             {darkMode ? '🌞' : '🌙'}
-          </button>
-        </li>
+          </button> */}
+        {/* </li> */}
       </ul>
     </nav>
   );

@@ -88,49 +88,74 @@ function CertificatesPage() {
                     <h2 className="text-xl font-semibold text-gray-800">{cert.event}</h2>
                     <p className="text-sm text-gray-500">Completed on {cert.date}</p>
                   </div>
-                  <button
-                    onClick={() =>
-                      setVisibleCertId((prev) => (prev === cert.id ? null : cert.id))
-                    }
-                    className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-sm"
-                  >
-                    {visibleCertId === cert.id ? "Hide Certificate" : "Show Certificate"}
-                  </button>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() =>
+                        setVisibleCertId((prev) => (prev === cert.id ? null : cert.id))
+                      }
+                      className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-sm"
+                    >
+                      {visibleCertId === cert.id ? "Hide Certificate" : "Show Certificate"}
+                    </button>
+                    <button
+                      onClick={() => downloadCertificate(cert.id)}
+                      className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm"
+                    >
+                      Download
+                    </button>
+                  </div>
                 </div>
 
                 {visibleCertId === cert.id && (
-                  <>
-                    <div
-                      id={`cert-${cert.id}`}
-                      className="mt-6 bg-white border-4 border-indigo-500 rounded-xl p-10 shadow-md text-center relative overflow-hidden"
-                    >
-                      <h3 className="text-2xl font-bold text-indigo-800 mb-2 uppercase tracking-wide">
-                        Tech Event Management
-                      </h3>
-                      <h2 className="text-3xl font-extrabold text-gray-800 mb-4 mt-2">
-                        Certificate of Participation
-                      </h2>
-                      <p className="text-lg text-gray-700">
-                        This certifies that{" "}
-                        <span className="font-semibold decoration-indigo-500">
-                          {user?.name}
-                        </span>
-                      </p>
-                      <p className="text-lg text-gray-700">
-                        has participated in the event
-                      </p>
-                      <p className="text-xl font-bold text-indigo-700 mt-2">{cert.event}</p>
-                      <p className="text-sm text-gray-500 mt-4">Dated: {cert.date}</p>
+                  <div
+                    id={`cert-${cert.id}`}
+                    className="mt-8 bg-white border-[8px] border-yellow-600 rounded-lg p-8 shadow-xl text-center relative overflow-visible max-w-[700px] mx-auto scale-90"
+                  >
+                    {/* Inner border */}
+                    <div className="absolute inset-0 border border-yellow-500 rounded-lg pointer-events-none" />
 
-                      <div className="absolute bottom-4 right-4 text-xs italic text-gray-300">
-                        Powered by Tech Event Management
+                    {/* Event Title */}
+                    <h2 className="text-lg font-serif font-semibold text-yellow-700 uppercase tracking-wide mb-1">
+                      Tech Event Management
+                    </h2>
+
+                    {/* Certificate Title */}
+                    <h1 className="text-2xl font-serif font-bold text-gray-900 uppercase tracking-wider mb-4 whitespace-nowrap">
+                      Certificate of Participation
+                    </h1>
+
+                    {/* Certify Statement */}
+                    <p className="text-sm text-gray-700 mb-1">This is to certify that</p>
+                    <p className="text-xl font-serif font-semibold text-gray-900 mb-2 underline decoration-yellow-600 decoration-2 underline-offset-2">
+                      {user?.name}
+                    </p>
+
+                    {/* Event Name */}
+                    <p className="text-sm text-gray-700 mb-1">has successfully participated in the event</p>
+                    <p className="text-lg font-semibold text-blue-800 mb-4 italic tracking-wide">{cert.event}</p>
+
+                    {/* Date */}
+                    <p className="text-xs text-gray-500 mb-4">Date Issued: {cert.date}</p>
+
+                    {/* Signatures */}
+                    <div className="flex justify-between items-center mt-6 px-4">
+                      <div className="text-left">
+                        <p className="border-t border-gray-400 w-32 pt-1 text-xs text-gray-700">
+                          Organizer Signature
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="border-t border-gray-400 w-32 pt-1 text-xs text-gray-700">
+                          Authority Signature
+                        </p>
                       </div>
                     </div>
 
-                    <div className="mt-4 text-right">
-                      
+                    {/* Footer */}
+                    <div className="absolute bottom-2 left-4 text-[10px] text-gray-400 italic">
+                      Powered by Tech Event Management
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
             ))}
