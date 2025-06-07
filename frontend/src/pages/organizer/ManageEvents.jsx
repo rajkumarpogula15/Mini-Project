@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import OrganizerSidebarLayout from "../../components/OrganizerSidebarLayout";
-import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import CreateEventModal from "../../components/CreateEventModal";
 import BookVendorsModal from "../../components/BookVendorsModal";
 import EventCard from "../../components/EventCard";
@@ -53,16 +53,22 @@ function ManageEvents() {
 
   return (
     <OrganizerSidebarLayout>
-      <h1 className="text-2xl font-bold mb-4">🗓️ Manage Your Events</h1>
-
-      <div className="mb-6">
-        <button
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="flex items-center justify-between mb-6"
+      >
+        <h1 className="text-3xl font-bold text-gray-800">🗓️ Manage Events</h1>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={() => setShowModal(true)}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-6 py-2 rounded-xl shadow-md hover:shadow-lg transition"
         >
           ➕ Add Event
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
 
       <CreateEventModal
         isOpen={showModal}
@@ -77,20 +83,36 @@ function ManageEvents() {
       />
 
       {events.length === 0 ? (
-        <p className="text-gray-500">No events added yet.</p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-gray-500 mt-8 text-center"
+        >
+          No events created yet. Click “Add Event” to get started!
+        </motion.p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {events.map((event) => (
-            <EventCard
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+        >
+          {events.map((event, index) => (
+            <motion.div
               key={event._id}
-              event={event}
-              onDelete={deleteEvent}
-              onEdit={editEvent}
-              onBookVendors={openBookingModal}
-              token={token} // ✅ Pass token to EventCard
-            />
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <EventCard
+                event={event}
+                onDelete={deleteEvent}
+                onEdit={editEvent}
+                onBookVendors={openBookingModal}
+                token={token}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       )}
     </OrganizerSidebarLayout>
   );

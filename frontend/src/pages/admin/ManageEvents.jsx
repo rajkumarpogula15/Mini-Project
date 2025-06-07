@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import AdminLeftbar from "../../components/AdminLeftbar";
+import ConfirmModal from "../../components/ConfirmModal";
+
 function AdminManageEvents() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [confirmModal, setConfirmModal] = useState({ isOpen: false, eventId: null });
+
   const token = localStorage.getItem("userToken");
 
   useEffect(() => {
@@ -24,13 +28,16 @@ function AdminManageEvents() {
     }
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this event?")) return;
+  const confirmDelete = (eventId) => {
+    setConfirmModal({ isOpen: true, eventId });
+  };
 
+  const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/events/${id}`, {
+      await axios.delete(`http://localhost:5000/api/events/${confirmModal.eventId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
+      setConfirmModal({ isOpen: false, eventId: null });
       fetchEvents();
     } catch (err) {
       console.error("Delete failed:", err.message);
@@ -41,6 +48,13 @@ function AdminManageEvents() {
     <AdminLeftbar>
       <div>
         <h1 className="text-2xl font-bold mb-6 text-indigo-600">📅 Manage Events</h1>
+
+        <ConfirmModal
+          isOpen={confirmModal.isOpen}
+          message="Are you sure you want to delete this event?"
+          onCancel={() => setConfirmModal({ isOpen: false, eventId: null })}
+          onConfirm={handleDelete}
+        />
 
         {loading ? (
           <p className="text-gray-500">Loading events...</p>
@@ -58,7 +72,7 @@ function AdminManageEvents() {
                 <p className="text-sm text-gray-600 mt-1">{event.description}</p>
 
                 <button
-                  onClick={() => handleDelete(event._id)}
+                  onClick={() => confirmDelete(event._id)}
                   className="mt-3 bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded"
                 >
                   Delete

@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import OrganizerSidebarLayout from "../../components/OrganizerSidebarLayout";
+import { motion, AnimatePresence } from "framer-motion";
 
 function OrganizerBookings() {
   const token = localStorage.getItem("userToken");
   const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
   const headers = { Authorization: `Bearer ${token}` };
 
   const fetchBookings = async () => {
+    setLoading(true);
     try {
       const res = await axios.get("http://localhost:5000/api/bookings/organizer", { headers });
       setBookings(res.data);
     } catch (err) {
       console.error("Error fetching bookings:", err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -45,50 +50,94 @@ function OrganizerBookings() {
 
   return (
     <OrganizerSidebarLayout>
-      <h1 className="text-3xl font-bold mb-6 text-center">📖 All Bookings</h1>
+      <div className="p-6 min-h-screen bg-gray-50">
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-3xl md:text-4xl font-bold text-center mb-10 text-gray-800"
+        >
+          📘 My Event Bookings
+        </motion.h1>
 
-      {bookings.length === 0 ? (
-        <p className="text-gray-500">No bookings available.</p>
-      ) : (
-        <div className="space-y-4 mb-8">
-          {bookings.map((booking) => (
-            <div key={booking._id} className="bg-white shadow p-4 rounded">
-              <p><strong>Expert Name:</strong> {booking.expert ? booking.expert.name : "N/A"}</p>
-              <p><strong>Event Date:</strong> {new Date(booking.eventDate).toLocaleDateString()}</p>
-              <p>
-                <strong>Status:</strong>{" "}
-                <span className={`capitalize font-semibold ${
-                  booking.status === "pending" ? "text-yellow-600" :
-                  booking.status === "accepted" ? "text-green-600" :
-                  booking.status === "rejected" ? "text-red-600" :
-                  "text-gray-500"
-                }`}>
-                  {booking.status}
-                </span>
-              </p>
+        {loading ? (
+          <p className="text-center text-gray-500 animate-pulse">Loading bookings...</p>
+        ) : bookings.length === 0 ? (
+          <p className="text-center text-gray-500">No bookings available.</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <AnimatePresence>
+              {bookings.map((booking) => (
+                <motion.div
+                  key={booking._id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-white rounded-xl shadow-md hover:shadow-lg border border-gray-200 p-5 space-y-3 transition-all duration-300"
+                >
+                  <h2 className="text-lg font-semibold text-indigo-700">
+                    🎓 {booking.expert?.name || "Expert N/A"}
+                  </h2>
 
-              {booking.status === "pending" && (
-                <div className="mt-2 space-x-2">
-                  <button
-                    onClick={() => handleCancel(booking._id)}
-                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm"
-                  >
-                    Cancel Booking
-                  </button>
-                  <button
-                    onClick={() => handleDelete(booking._id)}
-                    className="bg-gray-700 hover:bg-gray-800 text-white px-3 py-1 rounded text-sm"
-                  >
-                    Delete Booking
-                  </button>
-                </div>
-              )}
+                  <p className="text-sm text-gray-600">
+                    📅{" "}
+                    {new Date(booking.eventDate).toLocaleDateString("en-IN", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </p>
 
-              <p><strong>Message:</strong> {booking.message || "—"}</p>
-            </div>
-          ))}
-        </div>
-      )}
+                  <p className="text-sm text-gray-500 italic">
+                    📨 {booking.message || "No message provided"}
+                  </p>
+
+                  <p className="text-sm font-medium">
+                    ✅ Status:{" "}
+                    <span
+                      className={`font-semibold capitalize ${
+                        booking.status === "pending"
+                          ? "text-yellow-600"
+                          : booking.status === "accepted"
+                          ? "text-green-600"
+                          : booking.status === "rejected"
+                          ? "text-red-600"
+                          : "text-gray-500"
+                      }`}
+                    >
+                      {booking.status === "pending"
+                        ? "⏳ Pending"
+                        : booking.status === "accepted"
+                        ? "✅ Accepted"
+                        : booking.status === "rejected"
+                        ? "❌ Rejected"
+                        : "Unknown"}
+                    </span>
+                  </p>
+
+                  {booking.status === "pending" && (
+                    <div className="flex justify-start gap-2 pt-3">
+                      <button
+                        onClick={() => handleCancel(booking._id)}
+                        className="px-3 py-1 text-sm bg-red-500 hover:bg-red-600 text-white rounded-md transition duration-200"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={() => handleDelete(booking._id)}
+                        className="px-3 py-1 text-sm bg-gray-700 hover:bg-gray-800 text-white rounded-md transition duration-200"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        )}
+      </div>
     </OrganizerSidebarLayout>
   );
 }

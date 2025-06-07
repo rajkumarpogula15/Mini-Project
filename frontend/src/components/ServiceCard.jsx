@@ -14,7 +14,7 @@ function ServiceCard({ service, onDelete, onEdit }) {
         `http://localhost:5000/api/bookings/expert?expertId=${service._id}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
           },
         }
       );
@@ -34,13 +34,13 @@ function ServiceCard({ service, onDelete, onEdit }) {
         { status },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
             "Content-Type": "application/json",
           },
         }
       );
       toast.success(`Booking ${status} successfully`);
-      fetchBookings(); // Refresh bookings
+      fetchBookings(); // Refresh bookings after update
     } catch (err) {
       console.error("Error updating status:", err.response?.data || err.message);
       toast.error("Failed to update booking status");
@@ -55,7 +55,7 @@ function ServiceCard({ service, onDelete, onEdit }) {
   return (
     <div className="bg-white p-4 rounded shadow space-y-2">
       <h3 className="text-xl font-bold text-green-600">{service.name}</h3>
-      <h4 className="text-md font-semibold text-green-500">{service.expertice}</h4>
+      <h4 className="text-md font-semibold text-green-500">{service.expertise}</h4>
       <p className="text-sm text-gray-500">{service.category}</p>
       <p>{service.description}</p>
       <p>📍 {service.location}</p>
@@ -81,19 +81,19 @@ function ServiceCard({ service, onDelete, onEdit }) {
       <div className="flex flex-wrap gap-2 mt-3">
         <button
           onClick={() => onEdit(service)}
-          className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm"
+          className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm cursor-pointer"
         >
           Edit
         </button>
         <button
           onClick={() => onDelete(service._id)}
-          className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm"
+          className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm cursor-pointer"
         >
           Delete
         </button>
         <button
           onClick={handleViewBookings}
-          className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm"
+          className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm cursor-pointer"
         >
           View Bookings
         </button>
@@ -104,7 +104,8 @@ function ServiceCard({ service, onDelete, onEdit }) {
           <div className="bg-white w-full max-w-lg p-6 rounded-lg shadow-lg relative max-h-[80vh] overflow-y-auto">
             <button
               onClick={() => setShowBookings(false)}
-              className="absolute top-2 right-3 text-gray-500 hover:text-gray-700 text-lg"
+              aria-label="Close bookings modal"
+              className="absolute top-2 right-3 text-gray-500 hover:text-gray-700 text-lg cursor-pointer"
             >
               ✕
             </button>
@@ -159,18 +160,14 @@ function ServiceCard({ service, onDelete, onEdit }) {
                   {booking.status === "pending" && (
                     <div className="flex gap-2 mt-2">
                       <button
-                        onClick={() =>
-                          handleResponse(booking._id, "accepted")
-                        }
-                        className="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-sm"
+                        onClick={() => handleResponse(booking._id, "accepted")}
+                        className="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-sm cursor-pointer"
                       >
                         Accept
                       </button>
                       <button
-                        onClick={() =>
-                          handleResponse(booking._id, "rejected")
-                        }
-                        className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-sm"
+                        onClick={() => handleResponse(booking._id, "rejected")}
+                        className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-sm cursor-pointer"
                       >
                         Reject
                       </button>

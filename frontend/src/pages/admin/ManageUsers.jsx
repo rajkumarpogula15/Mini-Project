@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import SidebarLayout from "../../components/AdminLeftbar";
 import AddUserModal from "../../components/AddUserModal";
+import ConfirmModal from "../../components/ConfirmModal";
 
 function ManageUsers() {
   const [users, setUsers] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [confirmModal, setConfirmModal] = useState({ isOpen: false, userId: null });
 
   const token = localStorage.getItem("userToken");
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchUsers = async () => {
     try {
@@ -21,16 +22,19 @@ function ManageUsers() {
     }
   };
 
-  const deleteUser = async (id) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
-      try {
-        await axios.delete(`http://localhost:5000/api/users/admin/users/${id}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        fetchUsers();
-      } catch (err) {
-        console.error("Delete failed:", err.message);
-      }
+  const confirmDelete = (userId) => {
+    setConfirmModal({ isOpen: true, userId });
+  };
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:5000/api/users/admin/users/${confirmModal.userId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setConfirmModal({ isOpen: false, userId: null });
+      fetchUsers();
+    } catch (err) {
+      console.error("Delete failed:", err.message);
     }
   };
 
@@ -55,17 +59,24 @@ function ManageUsers() {
         <h1 className="text-2xl font-bold mb-6">Manage Users 👥</h1>
 
         <button
-            className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-            onClick={() => setIsModalOpen(true)}
-          >
-            ➕ Add User
-          </button>
+          className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          onClick={() => setIsModalOpen(true)}
+        >
+          ➕ Add User
+        </button>
 
-          <AddUserModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            onUserAdded={fetchUsers}
-          />
+        <AddUserModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onUserAdded={fetchUsers}
+        />
+
+        <ConfirmModal
+          isOpen={confirmModal.isOpen}
+          onConfirm={handleDelete}
+          onCancel={() => setConfirmModal({ isOpen: false, userId: null })}
+          message="Are you sure you want to delete this user?"
+        />
 
         {users.length === 0 ? (
           <p>No users found.</p>
@@ -102,7 +113,7 @@ function ManageUsers() {
                     </button>
                     <button
                       className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
-                      onClick={() => deleteUser(u._id)}
+                      onClick={() => confirmDelete(u._id)}
                     >
                       Delete
                     </button>

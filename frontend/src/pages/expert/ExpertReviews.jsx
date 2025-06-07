@@ -15,7 +15,7 @@ function ExpertReviews() {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log("Fetched reviews:", res.data);
+        // console.log("Fetched reviews:", res.data);
 
         // Normalize data: ensure it's an array
         const data = res.data;

@@ -23,7 +23,7 @@ function AttendeeDashboard() {
       const res = await axios.get("http://localhost:5000/api/registrations/myevent", { headers });
       setMyEvents(res.data.registrations || []);
 
-      const recRes = await axios.get("http://localhost:5000/api/events/recommended", { headers });
+      const recRes = await axios.get("http://localhost:5000/api/events", { headers });
       setRecommended(recRes.data || []);
 
       const fields = ["name", "email", "phone", "bio"];
