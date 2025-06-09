@@ -19,6 +19,7 @@ import FAQ from './components/FAQ';
 import LearnMore from './pages/LearnMore.jsx';
 
 // Admin Pages
+import SidebarLayout from './components/AdminLeftbar.jsx';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminManageEvents from './pages/admin/ManageEvents.jsx';
 import AdminMessages from './pages/admin/Messages.jsx';
@@ -93,7 +94,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/admin/events" element={<AdminRoute><AdminManageEvents /></AdminRoute>} />
         <Route path="/admin/users" element={<AdminRoute><ManageUsers /></AdminRoute>} />
         <Route path="/admin/bookings" element={<AdminRoute><ManageBookings /></AdminRoute>} />
-        <Route path="/admin/messages" element={<AdminRoute><AdminMessages /></AdminRoute>} />
+        <Route path="/admin/messages" element={<AdminRoute><SidebarLayout><AdminMessages /></SidebarLayout></AdminRoute>} />
         <Route path="/admin/reviews" element={<AdminRoute><ReviewsPage /></AdminRoute>} />
         <Route path="/admin/payments" element={<AdminRoute><PaymentsPage /></AdminRoute>} />
         <Route path="/admin/settings" element={<AdminRoute><SettingsPage /></AdminRoute>} />
