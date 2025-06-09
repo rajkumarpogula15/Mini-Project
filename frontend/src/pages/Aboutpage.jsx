@@ -243,9 +243,10 @@ const AboutPage = () => {
   return (
     <main className="font-sans antialiased text-slate-700">
       <Navbar />
-      <FeaturesSection />
+      {/* <FeaturesSection /> */}
       <TeamSection />
       <TechStackSection />
+      <FeaturesSection />
       <CTASection />
     </main>
   );
