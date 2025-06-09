@@ -60,6 +60,9 @@ import OrganizerRoute from './routes/OrganizerRoute.jsx';
 
 // Optional 404 Page
 import NotFound from './pages/NotFound.jsx';
+import ViewProfile from './pages/ViewProfile.jsx';
+import Profile from './pages/organizer/Profile.jsx';
+  
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -81,8 +84,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/faq" element={<FAQ />} />
         <Route path="/learnmore" element={<LearnMore />} />
         
-        {/* Fallback Route */}
-        <Route path="*" element={<NotFound />} />
+    
 
 
         {/* Admin Routes */}
@@ -122,7 +124,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 
         {/* Fallback Route */}
+        <Route path="/view-profile/:id" element={<ViewProfile />} />
+
         <Route path="*" element={<NotFound />} />
+        
+        
+
 
       </Routes>
     </BrowserRouter>

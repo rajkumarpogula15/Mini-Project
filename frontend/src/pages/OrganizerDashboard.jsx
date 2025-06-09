@@ -174,8 +174,8 @@ function OrganizerDashboard() {
       <div>
         <h2 className="text-xl font-semibold mb-2">🔔 Notifications</h2>
         <ul className="bg-white p-4 rounded shadow text-sm space-y-2">
-          <li>✅ Booking confirmed by DJMax</li>
-          <li>❌ Vendor PhotoPro declined your request</li>
+          <li>✅ Booking confirmed </li>
+          <li>❌ EXPERT 2 declined your request</li>
           <li>💬 New review from an attendee</li>
         </ul>
       </div>

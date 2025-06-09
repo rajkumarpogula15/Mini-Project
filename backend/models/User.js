@@ -20,17 +20,24 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['organizer', 'expert', 'attendee', 'admin'],  // 🔄 Changed 'vendor' to 'expert'
+    enum: ['organizer', 'expert', 'attendee', 'admin'],  
     default: 'attendee'
   },
   blocked: {
     type: Boolean,
     default: false
-  }
+  },
+  status: {
+  type: String,
+  enum: ['pending', 'approved', 'rejected'],
+  default: 'pending',
+},
 }, {
   timestamps: true
 });
 
 const User = mongoose.model('User', userSchema);
+
+
 
 export default User;

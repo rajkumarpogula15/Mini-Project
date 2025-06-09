@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";  // <-- Import useNavigate
 import SidebarLayout from "../../components/AdminLeftbar";
 import AddUserModal from "../../components/AddUserModal";
 import ConfirmModal from "../../components/ConfirmModal";
 
 function ManageUsers() {
   const [users, setUsers] = useState([]);
+  const [profiles, setProfiles] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [confirmModal, setConfirmModal] = useState({ isOpen: false, userId: null });
 
   const token = localStorage.getItem("userToken");
+  const navigate = useNavigate();  // <-- Initialize navigate
 
   const fetchUsers = async () => {
     try {
@@ -19,6 +22,17 @@ function ManageUsers() {
       setUsers(res.data);
     } catch (err) {
       console.error("Failed to fetch users:", err.message);
+    }
+  };
+
+  const fetchProfiles = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/admin/profiles", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setProfiles(res.data);
+    } catch (err) {
+      console.error("Failed to fetch profiles:", err.message);
     }
   };
 
@@ -51,6 +65,7 @@ function ManageUsers() {
 
   useEffect(() => {
     fetchUsers();
+    fetchProfiles();
   }, []);
 
   return (
@@ -78,10 +93,11 @@ function ManageUsers() {
           message="Are you sure you want to delete this user?"
         />
 
+        {/* USER LIST */}
         {users.length === 0 ? (
           <p>No users found.</p>
         ) : (
-          <table className="w-full bg-white rounded shadow text-left">
+          <table className="w-full bg-white rounded shadow text-left mb-10">
             <thead className="bg-gray-200">
               <tr>
                 <th className="p-3">Name</th>
@@ -111,6 +127,15 @@ function ManageUsers() {
                     >
                       {u.blocked ? "Unblock" : "Block"}
                     </button>
+
+                    {/* Fix here: navigate on click */}
+                    <button
+                      className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
+                      onClick={() => navigate(`${u._id}`)}
+                    >
+                      View Profile
+                    </button>
+
                     <button
                       className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
                       onClick={() => confirmDelete(u._id)}
@@ -123,6 +148,9 @@ function ManageUsers() {
             </tbody>
           </table>
         )}
+
+       
+        
       </div>
     </SidebarLayout>
   );
