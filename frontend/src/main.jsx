@@ -17,6 +17,7 @@ import Terms from './components/Terms';
 import Privacy from './components/Privacy';
 import FAQ from './components/FAQ';
 import LearnMore from './pages/LearnMore.jsx';
+import AboutPage from './pages/Aboutpage.jsx';
 
 // Admin Pages
 import SidebarLayout from './components/AdminLeftbar.jsx';
@@ -84,9 +85,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/learnmore" element={<LearnMore />} />
-        
-    
-
+        <Route path="/about" element={<AboutPage />} />
 
         {/* Admin Routes */}
         <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
