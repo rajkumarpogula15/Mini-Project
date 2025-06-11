@@ -152,7 +152,7 @@ const TeamSection = () => {
     <section className="py-20 bg-gradient-to-br from-white to-slate-100">
       <div className="max-w-6xl mx-auto px-6 text-center mb-12">
         <h2 className="text-4xl font-bold text-gray-800">
-        The Minds Behind <span className="text-teal-600">Tech Event Managemnet</span>
+        The Minds Behind <span className="text-teal-600">Tech Event Management</span>
         </h2>
         <p className="text-gray-600 mt-2">
         Young minds building smart solutions for a connected community.
